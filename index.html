@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Screen</title> <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <div id="left-clmn">
+            <nav>
+                <button>ARTIST</button>
+                <button>LYRICS</button>
+                <button>UP NEXT</button>
+                <button>QUIZ</button>
+            </nav>
+
+            <div class="main-img"></div>
+
+
+
+            <div id="meta-data">
+
+                <p>Da Brown Flips</p>
+                <div class="audio-container">
+                    <div class="progress-bar" id="progress-bar">
+                      <div class="progress" id="progress"></div>
+                    </div>
+                    <div class="time-container">
+                      <span id="current-time">0:00</span>
+                      <span id="duration">0:00</span>
+                    </div>
+                </div>
+                
+                <audio id="audio" style="display: none;">
+                <source src="your-audio-file.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </div>
+
+        <div id="right-clmn"></div>
+    </main>
+</body>
+</html>
