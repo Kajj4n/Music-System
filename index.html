@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Screen</title> <link rel="stylesheet" href="style.css">
+    <title>Home Screen</title> <link rel="stylesheet" href="style.css"> <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 </head>
 <body>
-    <main>
+    <main id="main">
         <div id="left-clmn">
             <nav>
-                <button>ARTIST</button>
-                <button>LYRICS</button>
-                <button>UP NEXT</button>
-                <button>QUIZ</button>
+                <button class="tab" id="">ARTIST</button>
+                <button class="tab" id="">LYRICS</button>
+                <button class="tab" id="crnt-tab">UP NEXT</button>
+                <button class="tab" id="">QUIZ</button>
             </nav>
 
             <div class="main-img"></div>
@@ -21,7 +21,9 @@
 
             <div id="meta-data">
 
-                <p>Da Brown Flips</p>
+                <p id="main-title">Mountains</p>
+                <h3 id="main-album">I'm The Danger</h3>
+
                 <div class="audio-container">
                     <div class="progress-bar" id="progress-bar">
                       <div class="progress" id="progress"></div>
@@ -38,7 +40,282 @@
             </div>
         </div>
 
-        <div id="right-clmn"></div>
+        <div id="right-clmn">
+            <div id="search-lng">
+                <div class="search-wrapper">
+                    <img id="search-glass" src="./images/sGlass.png" alt="">
+                    <input type="search" placeholder="Search song, artist, album." id="search" onkeyup="myFunction()">
+                    <p id="exit-search">X</p>
+                </div>
+
+                <div id="lng-img"></div>
+            </div>
+
+
+            <div id="crnt-page">
+
+                <div id="artist">
+                    <div id="artist-img">
+                        <h2>Black Sabbath</h2>
+                    </div>
+
+                    <div id="artist-txt">
+                        
+                        <p id="actl-text"> Black Sabbath were an English rock band formed in Birmingham in 1968 by  guitarist Tony Iommi, drummer Bill Ward, bassist Geezer Butler, and  vocalist Ozzy Osbourne. They are often cited as pioneers. A metal institution whose influence cannot be overstated, Black Sabbath pioneered the genre as they constructed the framework for subsequent subgenres within metal, with entire movements rising from blueprints laid out in single Sabbath songs. From the end of the 1960s and throughout the entirety of the '70s, the band became legendary for the doomy chemistry between its players: 's primal vocals, 's seismic riffing, 's bluntly powerful drumming, and 's thunderous basslines all congealed into a sinister breed of hard rock and occult-fixated songcraft the world had never heard before. This untouchable original lineup was responsible for metal masterpieces like 1970's Paranoid, but when they splintered in 1979, Black Sabbath soldiered on with a cast of various different singers -- most notably  for a pair of albums in the '80s -- while  applied his prince of darkness persona to a successful solo career that would span decades. There were various reunions and partial re-formations of the first Black Sabbath lineup, aiming to recapture some of their early evil energy on later-period outings like 2013's 13. ...
+                    </div>
+
+                    <p id="expand-txt">Show more</p>
+
+                    <h3 id="context">Popular</h3>
+                    <div class="artist-card">
+                    
+                        <div class="card-left">
+                            <img src="./images/song.jpg" alt="">
+                            <div class="sng-txt">
+                                <h3>Nightcall</h3>
+                                <h4>Kavinsky</h4>
+    
+                                <div class="q-icons">
+                                    <img src="./images/libIcon.png" alt="">
+                                    <img src="./images/frwrdIcon.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-right">
+                            <p>5:27</p>
+                            <img src="./images/smplIcon.png" alt="">
+                        </div>
+                        
+                    </div>
+
+                    <div class="artist-card">
+                    
+                        <div class="card-left">
+                            <img src="./images/song.jpg" alt="">
+                            <div class="sng-txt">
+                                <h3>Nightcall</h3>
+                                <h4>Kavinsky</h4>
+    
+                                <div class="q-icons">
+                                    <img src="./images/libIcon.png" alt="">
+                                    <img src="./images/frwrdIcon.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-right">
+                            <p>5:27</p>
+                            <img src="./images/smplIcon.png" alt="">
+                        </div>
+                        
+                    </div>
+                    <div class="artist-card">
+                    
+                        <div class="card-left">
+                            <img src="./images/song.jpg" alt="">
+                            <div class="sng-txt">
+                                <h3>Nightcall</h3>
+                                <h4>Kavinsky</h4>
+    
+                                <div class="q-icons">
+                                    <img src="./images/libIcon.png" alt="">
+                                    <img src="./images/frwrdIcon.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-right">
+                            <p>5:27</p>
+                            <img src="./images/smplIcon.png" alt="">
+                        </div>
+                        
+                    </div>
+                    <div class="artist-card">
+                    
+                        <div class="card-left">
+                            <img src="./images/song.jpg" alt="">
+                            <div class="sng-txt">
+                                <h3>Nightcall</h3>
+                                <h4>Kavinsky</h4>
+    
+                                <div class="q-icons">
+                                    <img src="./images/libIcon.png" alt="">
+                                    <img src="./images/frwrdIcon.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-right">
+                            <p>5:27</p>
+                            <img src="./images/smplIcon.png" alt="">
+                        </div>
+                        
+                    </div>
+                    <div class="artist-card">
+                    
+                        <div class="card-left">
+                            <img src="./images/song.jpg" alt="">
+                            <div class="sng-txt">
+                                <h3>Nightcall</h3>
+                                <h4>Kavinsky</h4>
+    
+                                <div class="q-icons">
+                                    <img src="./images/libIcon.png" alt="">
+                                    <img src="./images/frwrdIcon.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-right">
+                            <p>5:27</p>
+                            <img src="./images/smplIcon.png" alt="">
+                        </div>
+                        
+                    </div>
+                    <div class="artist-card">
+                    
+                        <div class="card-left">
+                            <img src="./images/song.jpg" alt="">
+                            <div class="sng-txt">
+                                <h3>Nightcall</h3>
+                                <h4>Kavinsky</h4>
+    
+                                <div class="q-icons">
+                                    <img src="./images/libIcon.png" alt="">
+                                    <img src="./images/frwrdIcon.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-right">
+                            <p>5:27</p>
+                            <img src="./images/smplIcon.png" alt="">
+                        </div>
+                        
+                    </div>
+                    
+                    
+                    
+
+                </div>
+
+
+
+
+                <div id="lyrics"> 
+        
+                    <p id="lyrics-txt">[Bass Solo]
+                        
+                        [Verse 1]
+                        Oh yeah
+                        Some people say my love cannot be true
+                        Please believe me, my love, and I'll show you
+                        I will give you those things you thought unreal
+                        The sun, the moon, the stars, all bear my seal
+                        
+                        [Verse 2]
+                        Oh yeah
+                        Follow me now and you will not regret
+                        Leaving the life you led before we met
+                        You are the first to have this love of mine
+                        Forever with me till the end of time
+                        
+                        [Chorus]
+                        Your love for me has just got to be real
+                        Before you know the way I'm going to feel
+                        I'm going to feelI'm going to feel
+                        
+                        [Verse 3]
+                        Oh yeah
+                        Now, I have you with me under my power
+                        Our love grows stronger now with every hour
+                        Look into my eyes, you'll see who I am
+                        My name is Lucifer, please take my hand
+                        
+                        [Guitar Solo]
+                        
+                        [Verse 2]
+                        Oh yeah
+                        Follow me now and you will not regret
+                        Leaving the life you led before we met
+                        You are the first to have this love of mine
+
+                        [Verse 1]
+                        Oh yeah
+                        Some people say my love cannot be true
+                        Please believe me, my love, and I'll show you
+                        I will give you those things you thought unreal
+                        The sun, the moon, the stars, all bear my seal
+                        
+                        [Verse 2]
+                        Oh yeah
+                        Follow me now and you will not regret
+                        Leaving the life you led before we met
+                        You are the first to have this love of mine
+                        Forever with me till the end of time
+                        
+                        [Chorus]
+                        Your love for me has just got to be real
+                        Before you know the way I'm going to feel
+                        I'm going to feelI'm going to feel
+                        
+                        [Verse 3]
+                        Oh yeah
+                        Now, I have you with me under my power
+                        Our love grows stronger now with every hour
+                        Look into my eyes, you'll see who I am
+                        My name is Lucifer, please take my hand
+                        
+                        [Guitar Solo]
+                        
+                        [Verse 2]
+                        Oh yeah
+                        Follow me now and you will not regret
+                        Leaving the life you led before we met
+                        You are the first to have this love of mine
+                    </p>
+
+                    <div id="size-ctrl">
+                        <p id="l-big">A</p>
+                        <input type="range" orient="vertical" id="font-size-slider" min="20" max="40" value="20">
+                        <p id="l-small">A</p>
+                    </div>
+                </div>
+
+                <h3 id="playlist-title">Up Next</h3>
+                <div id="playlist"></div>
+
+                
+                <h3 id="library-title">Song library</h3>
+                <div id="library"></div>
+
+                
+
+            </div>
+
+            <div id="cta-holder">
+
+                <div class="whole-btn" id="add-lib">
+                    <button>Add Song</button>
+                    <div class="adaptive-clr">
+                        <img src="./images/libIcon.png" alt="">
+                    </div>
+                </div>
+
+                <div class="whole-btn" id="play-next">
+                    <button>Play Next</button>
+                    <div class="adaptive-clr">
+                        <img id="scnd-img" src="./images/next.png" alt="">
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </main>
+    
+    <script src="script.js"></script>
+    <script src="https://unpkg.com/colorthief@2.3.2/dist/color-thief.umd.js"></script> 
+
 </body>
 </html>

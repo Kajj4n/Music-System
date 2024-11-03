@@ -1,0 +1,136 @@
+[
+    {
+        "title": "Angel",
+        "artist": "Dezz",
+        "album": "Nu...",
+        "imageLink": "/songImages/angel.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": ""
+    },
+
+    {
+        "title": "Blood Red",
+        "artist": "Dezz",
+        "album": "Ba...",
+        "imageLink": "/songImages/blood.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": "Song length"
+    },
+
+    {
+        "title": "Layers of Bricks",
+        "artist": "Dezz",
+        "album": "Nu...",
+        "imageLink": "/songImages/bricks.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": "Song length"
+    },
+
+    {
+        "title": "Muay Fighter",
+        "artist": "Dezz",
+        "album": "Ba...",
+        "imageLink": "/songImages/fighter.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": "Song length"
+    },
+
+    {
+        "title": "Gohan",
+        "artist": "Dezz",
+        "album": "Nu...",
+        "imageLink": "/songImages/gohan.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": "Song length"
+    },
+
+    {
+        "title": "Stone Wall",
+        "artist": "Waltuh",
+        "album": "Making the Cook",
+        "imageLink": "/songImages/grassOnStoneWall.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": "Song length"
+    },
+
+    {
+        "title": "Mountains",
+        "artist": "Waltuh",
+        "album": "I'm the Danger",
+        "imageLink": "/songImages/mountains.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": "Song length"
+    },
+
+    {
+        "title": "Scary Ninja",
+        "artist": "Waltuh",
+        "album": "Making the Cook",
+        "imageLink": "/songImages/ninja.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": "Song length"
+    },
+
+    {
+        "title": "Drinkable Potion",
+        "artist": "Waltuh",
+        "album": "I'm the Danger",
+        "imageLink": "/songImages/potion.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": "Song length"
+    },
+
+    {
+        "title": "Roman soldier",
+        "artist": "Waltuh",
+        "album": "Making the Cook",
+        "imageLink": "/songImages/romanSoldier.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": "Song length"
+    },
+
+    {
+        "title": "I don't Know",
+        "artist": "Gabagool",
+        "album": "Just when I thought I was out",
+        "imageLink": "/songImages/sad.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": "Song length"
+    },
+
+    {
+        "title": "Best Lawyer",
+        "artist": "Gabagool",
+        "album": "They Pull Me Back In",
+        "imageLink": "/songImages/saulGoodman.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": "Song length"
+    },
+
+    {
+        "title": "Water Waves",
+        "artist": "Gabagool",
+        "album": "Just when I thought I was out",
+        "imageLink": "/songImages/waterWaves1.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": "Song length"
+    },
+
+    {
+        "title": "Wizzard",
+        "artist": "Gabagool",
+        "album": "They Pull Me Back In",
+        "imageLink": "/songImages/wizzard.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": "Song length"
+    },
+
+    {
+        "title": "Yuumi the Cat",
+        "artist": "Gabagool",
+        "album": "Just when I thought I was out",
+        "imageLink": "/songImages/yuumi.png",
+        "audioLink": "/path/to/audio1.mp3",
+        "length": "Song length"
+    }
+]
