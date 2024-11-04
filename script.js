@@ -106,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     exitSearchClick.addEventListener("click", exitSearch);
 
     function searchLib() {
+    page.style.overflowY = "hidden"
     playlistTitle.style.display = "none"
     libraryTitle.style.display = "unset"
         for (let i = 0; i < supposedDisp.length; i++) {
@@ -182,10 +183,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function checkTab(tab) {
+
+        page.style.overflowY = "hidden"
         if (tab.textContent === "UP NEXT") {
             playlist.style.display = "flex";
+            playlistTitle.style.display = "unset"
         } else {
             playlist.style.display = "none";
+            playlistTitle.style.display = "none"
         }
 
         if (tab.textContent === "LYRICS") {
@@ -196,6 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (tab.textContent === "ARTIST") {
             artist.style.display = "flex";
+            page.style.overflowY = "scroll"
         } else {
             artist.style.display = "none";
         }
@@ -300,30 +306,48 @@ document.addEventListener("DOMContentLoaded", async () => {
     const library = document.getElementById("library");
     const playlist = document.getElementById("playlist");
 
-    // Function to shuffle and get 10 random songs
+    const mainTitle = document.getElementById("main-title");
+    const mainAlbum = document.getElementById("main-album");
+    const audioElement = document.getElementById("audio");
+
+    const artistNameElement = document.querySelector("#artist-img h2");
+    const artistImageElement = document.getElementById("artist-img");
+    const artistTextElement = document.getElementById("artist-txt");
+    const popularSection = document.querySelector("#artist #context");
+
+    // Set to track songs in the current playlist by `title`
+    const playlistSongs = new Set();
+
     function getRandomSongs(songs, count = 10) {
-        const shuffled = songs.sort(() => 0.5 - Math.random());
+        const shuffled = [...songs].sort(() => 0.5 - Math.random());
         return shuffled.slice(0, count);
     }
 
-    // Function to load songs from JSON and create cards
     async function loadSongs() {
         try {
-            // Fetch JSON data for songs
             const response = await fetch('songs.json');
             const songs = await response.json();
 
-            // Display all songs in the library
-            songs.forEach(song => {
-                const cardDiv = createSongCard(song);
-                library.appendChild(cardDiv);
-            });
-
-            // Select 10 random songs and display them in the playlist
+            // Select 10 random songs and pick one for meta-data
             const randomSongs = getRandomSongs(songs);
+            const songForMetaData = randomSongs.pop();
+            updateMetaData(songForMetaData, songs);
+
+            // Add remaining 9 songs to the playlist and track their titles
             randomSongs.forEach(song => {
+                playlistSongs.add(song.title); // Track each song by its title
                 const cardDiv = createSongCard(song);
                 playlist.appendChild(cardDiv);
+            });
+
+            // Shuffle all songs again to randomize their display in the library
+            const shuffledSongs = [...songs].sort(() => 0.5 - Math.random());
+
+            // Display all songs in the library and update opacity for those in the playlist
+            shuffledSongs.forEach(song => {
+                const isInPlaylist = playlistSongs.has(song.title);
+                const cardDiv = createSongCard(song, isInPlaylist);
+                library.appendChild(cardDiv);
             });
 
         } catch (error) {
@@ -331,12 +355,49 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    // Helper function to create a song card
-    function createSongCard(song) {
+    function updateMetaData(song, allSongs) {
+        // Update main song details
+        const mainImg = document.querySelector(".main-img");
+        mainTitle.textContent = song.title;
+        mainAlbum.textContent = song.album;
+        audioElement.querySelector("source").src = song.audioLink;
+        audioElement.load();
+        mainImg.style.background = `url("${song.imageLink}") rgb(0, 0, 0) 100% / cover no-repeat`;
+
+        // Set the background for `body::before` with song image
+        const style = document.createElement('style'); 
+        style.innerHTML = `
+            body::before {
+                background: url("${song.imageLink}") center center / cover no-repeat;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Populate the artist section with `songForMetaData` details
+        artistNameElement.textContent = song.artist;
+        artistImageElement.style.backgroundImage = `url("${song.imageLink}")`;
+        artistTextElement.innerHTML = `
+            <p id="actl-text">
+                ${song.artist} is known for Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+            </p>
+        `;
+
+        // Filter and display all songs by this artist under "Popular"
+        const artistSongs = allSongs.filter(s => s.artist === song.artist);
+        popularSection.innerHTML = `<h3 id="context">Popular</h3>`; // Clear previous content and add header
+
+        artistSongs.forEach(artistSong => {
+            // Check if the song is in the playlist
+            const isInPlaylist = playlistSongs.has(artistSong.title);
+            const songCard = createSongCard(artistSong, isInPlaylist);
+            popularSection.appendChild(songCard);
+        });
+    }
+
+    function createSongCard(song, isInPlaylist = false) {
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('card');
 
-        // Populate card with song data using your HTML structure
         cardDiv.innerHTML = `
             <div class="card-left">
                 <img class="mini-pic" src="${song.imageLink}">
@@ -347,22 +408,24 @@ document.addEventListener("DOMContentLoaded", async () => {
             </div>
             <div class="card-right">
                 <p>${song.length}</p>
-                <img class="addlib" src="/images/libIcon.png">
+                <img class="addlib" src="/images/libIcon.png" style="opacity: ${isInPlaylist ? '0.5' : '1'};">
                 <img class="next" src="/images/next.png">
                 <img class="play-pause" src="/images/smplIcon.png">
             </div>
         `;
 
-        // Add event listener for play/pause toggle
         const playPauseIcon = cardDiv.querySelector('.play-pause');
         playPauseIcon.addEventListener('click', sample);
 
         return cardDiv;
     }
 
-    // Load songs on page load
     loadSongs();
 });
+
+
+
+
 
 
 

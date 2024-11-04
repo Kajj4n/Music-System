@@ -222,12 +222,17 @@ nav > button{
   position: relative;
   display: grid;
   grid-template-columns: 1fr 50px;
+  overflow-y: scroll;
 }
 
 #lyrics > p{
   color: white;
   font-size: 15px;
   margin: 0;
+}
+
+#current-time{
+  margin-left: 0px;
 }
 
 #crnt-page{

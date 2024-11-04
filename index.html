@@ -34,8 +34,8 @@
                     </div>
                 </div>
                 
-                <audio id="audio" style="display: none;">
-                <source src="your-audio-file.mp3" type="audio/mpeg">
+                <audio allow="autoplay" id="audio" style="display: none;">
+                <source src="" type="audio/mpeg">
                 </audio>
             </div>
         </div>
@@ -55,147 +55,36 @@
             <div id="crnt-page">
 
                 <div id="artist">
-                    <div id="artist-img">
-                        <h2>Black Sabbath</h2>
+                    <div id="artist-img"> <!-- imageLink -->
+                        <h2>Black Sabbath</h2><!-- artist -->
                     </div>
 
                     <div id="artist-txt">
                         
-                        <p id="actl-text"> Black Sabbath were an English rock band formed in Birmingham in 1968 by  guitarist Tony Iommi, drummer Bill Ward, bassist Geezer Butler, and  vocalist Ozzy Osbourne. They are often cited as pioneers. A metal institution whose influence cannot be overstated, Black Sabbath pioneered the genre as they constructed the framework for subsequent subgenres within metal, with entire movements rising from blueprints laid out in single Sabbath songs. From the end of the 1960s and throughout the entirety of the '70s, the band became legendary for the doomy chemistry between its players: 's primal vocals, 's seismic riffing, 's bluntly powerful drumming, and 's thunderous basslines all congealed into a sinister breed of hard rock and occult-fixated songcraft the world had never heard before. This untouchable original lineup was responsible for metal masterpieces like 1970's Paranoid, but when they splintered in 1979, Black Sabbath soldiered on with a cast of various different singers -- most notably  for a pair of albums in the '80s -- while  applied his prince of darkness persona to a successful solo career that would span decades. There were various reunions and partial re-formations of the first Black Sabbath lineup, aiming to recapture some of their early evil energy on later-period outings like 2013's 13. ...
+                        <p id="actl-text">
                     </div>
 
                     <p id="expand-txt">Show more</p>
 
                     <h3 id="context">Popular</h3>
-                    <div class="artist-card">
                     
-                        <div class="card-left">
-                            <img src="./images/song.jpg" alt="">
-                            <div class="sng-txt">
-                                <h3>Nightcall</h3>
-                                <h4>Kavinsky</h4>
-    
-                                <div class="q-icons">
-                                    <img src="./images/libIcon.png" alt="">
-                                    <img src="./images/frwrdIcon.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card-right">
-                            <p>5:27</p>
-                            <img src="./images/smplIcon.png" alt="">
-                        </div>
-                        
-                    </div>
 
-                    <div class="artist-card">
-                    
-                        <div class="card-left">
-                            <img src="./images/song.jpg" alt="">
-                            <div class="sng-txt">
-                                <h3>Nightcall</h3>
-                                <h4>Kavinsky</h4>
-    
-                                <div class="q-icons">
-                                    <img src="./images/libIcon.png" alt="">
-                                    <img src="./images/frwrdIcon.png" alt="">
-                                </div>
-                            </div>
+                    <!-- insert their songs here -->
+                    <!--
+                    <div class="card-left">
+                        <img class="mini-pic" src="${song.imageLink}">
+                        <div class="sng-txt">
+                            <h3>${song.title} <span>${song.album}<span></h3>
+                            <h3 class="artist">${song.artist}</h3>
                         </div>
-                        
-                        <div class="card-right">
-                            <p>5:27</p>
-                            <img src="./images/smplIcon.png" alt="">
-                        </div>
-                        
                     </div>
-                    <div class="artist-card">
-                    
-                        <div class="card-left">
-                            <img src="./images/song.jpg" alt="">
-                            <div class="sng-txt">
-                                <h3>Nightcall</h3>
-                                <h4>Kavinsky</h4>
-    
-                                <div class="q-icons">
-                                    <img src="./images/libIcon.png" alt="">
-                                    <img src="./images/frwrdIcon.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card-right">
-                            <p>5:27</p>
-                            <img src="./images/smplIcon.png" alt="">
-                        </div>
-                        
+                    <div class="card-right">
+                        <p>${song.length}</p>
+                        <img class="addlib" src="/images/libIcon.png" style="opacity: ${isInPlaylist ? '0.5' : '1'};">
+                        <img class="next" src="/images/next.png">
+                        <img class="play-pause" src="/images/smplIcon.png">
                     </div>
-                    <div class="artist-card">
-                    
-                        <div class="card-left">
-                            <img src="./images/song.jpg" alt="">
-                            <div class="sng-txt">
-                                <h3>Nightcall</h3>
-                                <h4>Kavinsky</h4>
-    
-                                <div class="q-icons">
-                                    <img src="./images/libIcon.png" alt="">
-                                    <img src="./images/frwrdIcon.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card-right">
-                            <p>5:27</p>
-                            <img src="./images/smplIcon.png" alt="">
-                        </div>
-                        
-                    </div>
-                    <div class="artist-card">
-                    
-                        <div class="card-left">
-                            <img src="./images/song.jpg" alt="">
-                            <div class="sng-txt">
-                                <h3>Nightcall</h3>
-                                <h4>Kavinsky</h4>
-    
-                                <div class="q-icons">
-                                    <img src="./images/libIcon.png" alt="">
-                                    <img src="./images/frwrdIcon.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card-right">
-                            <p>5:27</p>
-                            <img src="./images/smplIcon.png" alt="">
-                        </div>
-                        
-                    </div>
-                    <div class="artist-card">
-                    
-                        <div class="card-left">
-                            <img src="./images/song.jpg" alt="">
-                            <div class="sng-txt">
-                                <h3>Nightcall</h3>
-                                <h4>Kavinsky</h4>
-    
-                                <div class="q-icons">
-                                    <img src="./images/libIcon.png" alt="">
-                                    <img src="./images/frwrdIcon.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card-right">
-                            <p>5:27</p>
-                            <img src="./images/smplIcon.png" alt="">
-                        </div>
-                        
-                    </div>
-                    
-                    
+                    -->
                     
 
                 </div>
