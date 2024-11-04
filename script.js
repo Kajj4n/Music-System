@@ -65,33 +65,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function handleAction(actionType) {
-        const next = document.querySelectorAll(".next");
-        const libIcon = document.querySelectorAll(".addlib");
 
         // Assuming actionType is either "addToLib" or "playNext"
-        if (actionType === 'addToLib' || actionType === 'playNext') {
+        if (actionType === 'playNext') {
             searchBar.focus();
-        }
-
-        if (actionType === 'addToLib'){
-            for(let i = 0; i < next.length; i++){
-                next[i].style.display = "none"
-                libIcon[i].style.display = "unset"
-            }
-        }
-
-        if (actionType === 'playNext'){
-            for(let i = 0; i < libIcon.length; i++){
-                libIcon[i].style.display = "none"
-                next[i].style.display = "unset"
-            }
         }
     
         // Add any other logic for handling these actions here
     }
 
     // Example of triggering handleAction based on action type
-    addToLib.addEventListener('click', () => handleAction('addToLib'));
     playNext.addEventListener('click', () => handleAction('playNext'));
 
     
@@ -101,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
     checkTab(tab);
     
     searchBar.addEventListener("click", searchLib);
-    addToLib.addEventListener("click", searchLib);
     playNext.addEventListener("click", searchLib);
     exitSearchClick.addEventListener("click", exitSearch);
 
@@ -193,8 +175,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function checkTab(tab) {
+        const plays = document.querySelectorAll("#artist .plays");
+        const artists = document.querySelectorAll("#artist .artist");
 
         page.style.overflowY = "hidden"
+
         if (tab.textContent === "UP NEXT") {
             playlist.style.display = "flex";
             playlistTitle.style.display = "unset"
@@ -212,6 +197,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (tab.textContent === "ARTIST") {
             artist.style.display = "flex";
             page.style.overflowY = "scroll"
+
+            for (let i = 0; i < artists.length; i++){
+                plays[i].style.display = "unset"
+                artists[i].style.display = "none"
+    
+            }
+            console.log(artists)
+    
+
+
         } else {
             artist.style.display = "none";
         }
@@ -255,49 +250,23 @@ document.addEventListener("DOMContentLoaded", () => {
         audio.currentTime = (clickX / width) * duration;
     });
 
-    // create a ColorThief instance
-    const colorThief = new ColorThief();
 
-    cards.forEach(async (card) => {
-        const mainImageDiv = document.querySelector(".main-img"); // Assuming this is the div with the background image
+// async function to extract the color palette
+function extractColor(image) {
+    return new Promise((resolve) => {
+        const getPalette = () => colorThief.getPalette(image, 4);
 
-        // Extract the image URL from the background-image style
-        const bgImageUrl = window.getComputedStyle(mainImageDiv).backgroundImage;
-        const imageUrl = bgImageUrl.slice(5, -2); // Stripping off the 'url("")' part
+        if (image.complete) {
+            return resolve(getPalette());
+        }
 
-        // Create a temporary image element to load the background image
-        const tempImage = new Image();
-        tempImage.crossOrigin = "Anonymous"; // Make sure to handle CORS if the image is from a different domain
-        tempImage.src = imageUrl;
-
-        // Wait for the image to load
-        tempImage.onload = async function () {
-            // Get the color palette from the image using ColorThief
-            const palette = await extractColor(tempImage);
-
-            const primary = palette[0].join(",");
-            const secondary = palette[1].join(",");
-
-            // Change color
-            card.style.background = `rgb(${primary})`;
-            card.style.color = `rgb(${secondary})`;
+        image.onload = () => {
+            resolve(getPalette());
         };
     });
+}
 
-    // async function to extract the color palette
-    function extractColor(image) {
-        return new Promise((resolve) => {
-            const getPalette = () => colorThief.getPalette(image, 4);
 
-            if (image.complete) {
-                return resolve(getPalette());
-            }
-
-            image.onload = () => {
-                resolve(getPalette());
-            };
-        });
-    }
 
     const fontSizeRange = document.getElementById('font-size-slider');
     const lyricsT = document.getElementById('lyrics-txt');
@@ -424,6 +393,72 @@ document.addEventListener("DOMContentLoaded", async () => {
             </p>
         `;
 
+        const colorThief = new ColorThief();
+        const cards = document.querySelectorAll(".adaptive-clr");
+        
+        cards.forEach(async (card) => {
+            const mainImageDiv = document.querySelector(".main-img");
+            const adaptiveClrs = document.querySelectorAll(".adaptive-clr");
+        
+            // Extract the image URL from the background-image style
+            const bgImageUrl = window.getComputedStyle(mainImageDiv).backgroundImage;
+            const imageUrl = bgImageUrl.slice(5, -2); // Stripping off the 'url("")' part
+        
+            // Log the extracted image URL
+            console.log("Extracted Image URL:", imageUrl);
+        
+            // Create a temporary image element to load the background image
+            const tempImage = new Image();
+            tempImage.crossOrigin = "Anonymous"; // Handle CORS if needed
+            tempImage.src = imageUrl;
+        
+            tempImage.onload = async function () {
+                console.log("Image loaded successfully!");
+        
+                // Get the color palette from the image using ColorThief
+                const palette = await extractColor(tempImage);
+        
+                // Log the extracted palette to verify
+                console.log("Extracted Palette:", palette);
+        
+                const primary = palette[0]; // RGB array, e.g., [r, g, b]
+        
+                // Apply the primary color to each .adaptive-clr element
+                adaptiveClrs.forEach((adaptiveClr) => {
+                    adaptiveClr.style.background = `rgb(${primary.join(",")})`;
+        
+                    // Calculate luminance to determine if the color is bright
+                    const luminance = (0.299 * primary[0] + 0.587 * primary[1] + 0.114 * primary[2]) / 255;
+        
+                    // Set image color based on luminance
+                    const img = adaptiveClr.querySelector("img");
+                    if (luminance > 0.7) { // Adjust threshold as needed
+                        img.style.filter = "brightness(0)"; // Makes the image black
+                    } else {
+                        img.style.filter = "brightness(1)"; // Keeps the image original color
+                    }
+        
+                    console.log(`Applied color rgb(${primary.join(",")}) to`, adaptiveClr);
+                });
+            };
+        
+            // Async function to extract the color palette
+            function extractColor(image) {
+                return new Promise((resolve) => {
+                    const getPalette = () => colorThief.getPalette(image, 4);
+        
+                    if (image.complete) {
+                        return resolve(getPalette());
+                    }
+        
+                    image.onload = () => {
+                        resolve(getPalette());
+                    };
+                });
+            }
+        });
+        
+
     }
 
     function createSongCard(song, isInPlaylist = false) {
@@ -436,6 +471,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <div class="sng-txt">
                     <h3>${song.title} <span>${song.album}<span></h3>
                     <h3 class="artist">${song.artist}</h3>
+                    <h3 class="plays">${song.plays}</h3>
+
                 </div>
             </div>
             <div class="card-right">
@@ -486,29 +523,36 @@ function sample() {
 
 }
 function myFunction() {
-    // Declare variables
-    var input, filter, libraryT, cardT, songTitle, songArtist, i, txtValueTitle, txtValueArtist;
-
-    input = document.getElementById('search');  // Get the search input
-    filter = input.value.toUpperCase();          // Convert the input to uppercase for case-insensitive comparison
-    libraryT = document.getElementById("library"); // Get the library element
-    cardT = libraryT.getElementsByClassName('card'); // Get all song cards
+    const notFound = document.getElementById("unfound");
+    const input = document.getElementById('search');  // Get the search input
+    const filter = input.value.toUpperCase();          // Convert the input to uppercase for case-insensitive comparison
+    const libraryT = document.getElementById("library"); // Get the library element
+    const cardT = libraryT.getElementsByClassName('card'); // Get all song cards
+    
+    let anyVisible = false; // Track if any card is visible
 
     // Loop through all cards, and hide those who don't match the search query
-    for (i = 0; i < cardT.length; i++) {
-        songTitle = cardT[i].getElementsByClassName("sng-txt")[0]; // Get song text container
-        songArtist = cardT[i].getElementsByClassName("artist")[0]; // Get artist element
+    for (let i = 0; i < cardT.length; i++) {
+        const songTitle = cardT[i].getElementsByClassName("sng-txt")[0]; // Get song text container
+        const songArtist = cardT[i].getElementsByClassName("artist")[0]; // Get artist element
         
         if (songTitle && songArtist) { // Check if both song title and artist elements exist
-            txtValueTitle = songTitle.getElementsByTagName("h3")[0].textContent || songTitle.getElementsByTagName("h3")[0].innerText; // Get the song title text
-            txtValueArtist = songArtist.textContent || songArtist.innerText; // Get the artist text
+            const txtValueTitle = songTitle.getElementsByTagName("h3")[0].textContent || songTitle.getElementsByTagName("h3")[0].innerText; // Get the song title text
+            const txtValueArtist = songArtist.textContent || songArtist.innerText; // Get the artist text
 
             // Compare the text with the filter
             if (txtValueTitle.toUpperCase().indexOf(filter) > -1 || txtValueArtist.toUpperCase().indexOf(filter) > -1) {
                 cardT[i].style.display = "flex";  // Show card if it matches either the title or artist
+                anyVisible = true;  // Mark that at least one card is visible
             } else {
                 cardT[i].style.display = "none";   // Hide card if it doesn't match
             }
         }
     }
+
+    // Show "unfound" only if no cards are visible
+    notFound.style.display = anyVisible ? "none" : "flex";
+    libraryT.style.justifyContent = anyVisible ? "start" : "center";
+
 }
+

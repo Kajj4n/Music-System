@@ -5,132 +5,133 @@
         "album": "Nu...",
         "imageLink": "/songImages/angel.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "2:21"
+        "length": "2:21",
+        "plays": "134 278 945"
     },
-
     {
         "title": "Blood Red",
         "artist": "Dezz",
         "album": "Ba...",
         "imageLink": "/songImages/blood.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "4:55"
+        "length": "4:55",
+        "plays": "187 349 284"
     },
-
     {
         "title": "Layers of Bricks",
         "artist": "Dezz",
         "album": "Nu...",
         "imageLink": "/songImages/bricks.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "8:01"
+        "length": "8:01",
+        "plays": "92 567 812"
     },
-
     {
         "title": "Muay Fighter",
         "artist": "Dezz",
         "album": "Ba...",
         "imageLink": "/songImages/fighter.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "4:56"
+        "length": "4:56",
+        "plays": "157 893 624"
     },
-
     {
         "title": "Gohan",
         "artist": "Dezz",
         "album": "Nu...",
         "imageLink": "/songImages/gohan.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "7:11"
+        "length": "7:11",
+        "plays": "143 005 321"
     },
-
     {
         "title": "Stone Wall",
         "artist": "Waltuh",
         "album": "Making the Cook",
         "imageLink": "/songImages/grassOnStoneWall.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "4:20"
+        "length": "4:20",
+        "plays": "117 932 487"
     },
-
     {
         "title": "Mountains",
         "artist": "Waltuh",
         "album": "I'm the Danger",
         "imageLink": "/songImages/mountains.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "6:32"
+        "length": "6:32",
+        "plays": "184 320 291"
     },
-
     {
         "title": "Scary Ninja",
         "artist": "Waltuh",
         "album": "Making the Cook",
         "imageLink": "/songImages/ninja.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "10:31"
+        "length": "10:31",
+        "plays": "112 897 436"
     },
-
     {
         "title": "Drinkable Potion",
         "artist": "Waltuh",
         "album": "I'm the Danger",
         "imageLink": "/songImages/potion.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "1:57"
+        "length": "1:57",
+        "plays": "135 284 139"
     },
-
     {
         "title": "Roman soldier",
         "artist": "Waltuh",
         "album": "Making the Cook",
         "imageLink": "/songImages/romanSoldier.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "4:12"
+        "length": "4:12",
+        "plays": "160 943 219"
     },
-
     {
         "title": "I don't Know",
         "artist": "Gabagool",
         "album": "Just when I thought I was out",
         "imageLink": "/songImages/sad.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "7:34"
+        "length": "7:34",
+        "plays": "120 048 730"
     },
-
     {
         "title": "Best Lawyer",
         "artist": "Gabagool",
         "album": "They Pull Me Back In",
         "imageLink": "/songImages/saulGoodman.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "8:22"
+        "length": "8:22",
+        "plays": "175 604 981"
     },
-
     {
         "title": "Water Waves",
         "artist": "Gabagool",
         "album": "Just when I thought I was out",
         "imageLink": "/songImages/waterWaves1.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "6:14"
+        "length": "6:14",
+        "plays": "110 437 290"
     },
-
     {
         "title": "Wizzard",
         "artist": "Gabagool",
         "album": "They Pull Me Back In",
         "imageLink": "/songImages/wizzard.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "2:22"
+        "length": "2:22",
+        "plays": "145 201 672"
     },
-
     {
         "title": "Yuumi the Cat",
         "artist": "Gabagool",
         "album": "Just when I thought I was out",
         "imageLink": "/songImages/yuumi.png",
         "audioLink": "/audio/prepareForEscape.mp3",
-        "length": "3:00"
+        "length": "3:00",
+        "plays": "108 762 340"
     }
 ]
