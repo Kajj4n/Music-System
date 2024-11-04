@@ -106,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     exitSearchClick.addEventListener("click", exitSearch);
 
     function searchLib() {
+               
     page.style.overflowY = "hidden"
     playlistTitle.style.display = "none"
     libraryTitle.style.display = "unset"
@@ -138,8 +139,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function exitSearch() {
-        const next = document.querySelectorAll(".next");
-        const libIcon = document.querySelectorAll(".addlib");
+        const next = document.querySelectorAll("#playlist .next");
+        const libIcon = document.querySelectorAll("#playlist .addlib");
         playlistTitle.style.display = "unset"
         libraryTitle.style.display = "none"
 
@@ -160,6 +161,15 @@ document.addEventListener("DOMContentLoaded", () => {
         for(let i = 0; i < next.length; i++){
             next[i].style.display = "none"
             libIcon[i].style.display = "none"
+        }
+
+
+        
+        let crntTab = document.getElementById("crnt-tab");
+
+        if(crntTab.textContent == "ARTIST"){
+            page.style.overflowY = "scroll"
+            playlistTitle.style.display = "none"
         }
     }
 
@@ -323,6 +333,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         return shuffled.slice(0, count);
     }
 
+    // Inside the existing `loadSongs` function in your second DOMContentLoaded event listener
+
     async function loadSongs() {
         try {
             const response = await fetch('songs.json');
@@ -350,10 +362,40 @@ document.addEventListener("DOMContentLoaded", async () => {
                 library.appendChild(cardDiv);
             });
 
+            // New: Clone song cards to the artist page
+            cloneSongsToArtistPage(songs, songForMetaData.artist);
+
         } catch (error) {
             console.error('Error loading songs:', error);
         }
     }
+
+    // New function to clone songs for the artist page
+    function cloneSongsToArtistPage(songs, artist) {
+        const artistSongsContainer = document.querySelector('#artist #context'); // Update to match your artist section
+        const matchingSongs = songs.filter(song => song.artist === artist);
+    
+        matchingSongs.forEach(song => {
+            const isInPlaylist = playlistSongs.has(song.title); // Check if this song is in the playlist
+    
+            // Create song card or element
+            const cardDiv = createSongCard(song); // Assuming createSongCard is defined elsewhere
+    
+            // Find the existing library icon in the card
+            const existingIcon = cardDiv.querySelector('.addlib');
+            
+            // Update the opacity of the existing icon based on whether the song is in the playlist
+            if (existingIcon) {
+                existingIcon.style.opacity = isInPlaylist ? '0.5' : '1'; // Set opacity based on playlist status
+            }
+    
+            // Append the card to the artist section
+            artistSongsContainer.appendChild(cardDiv); // Append the card to the artist section
+        });
+    }
+    
+
+
 
     function updateMetaData(song, allSongs) {
         // Update main song details
@@ -382,16 +424,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             </p>
         `;
 
-        // Filter and display all songs by this artist under "Popular"
-        const artistSongs = allSongs.filter(s => s.artist === song.artist);
-        popularSection.innerHTML = `<h3 id="context">Popular</h3>`; // Clear previous content and add header
-
-        artistSongs.forEach(artistSong => {
-            // Check if the song is in the playlist
-            const isInPlaylist = playlistSongs.has(artistSong.title);
-            const songCard = createSongCard(artistSong, isInPlaylist);
-            popularSection.appendChild(songCard);
-        });
     }
 
     function createSongCard(song, isInPlaylist = false) {
