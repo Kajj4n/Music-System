@@ -1,4 +1,4 @@
-
+let exitError
 // Wrap the rest of your code in the DOMContentLoaded event listener
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const playPause = document.querySelectorAll(".play-pause");
     const exitSearchClick = document.getElementById("exit-search");
     const lngImg = document.getElementById("lng-img");
+    exitError = document.getElementById("warn-ext");
 
     libraryTitle.style.display = "none"
     lngImg.style.background = `url("/images/svFlag.png") center center / cover no-repeat`
@@ -511,8 +512,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     let hideTimeout; // Variable to store the timeout ID
 
     function addToPlaylist() {
-        const alreadyIn = document.getElementById("sng-alrdy-in-pl");
-    
+        const alreadyIn = document.getElementById("sng-alrdy-in-pl");    
         alreadyIn.style.display = "none";
     
         if (this.style.opacity == 1) {
@@ -530,16 +530,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Set a new timeout and store its ID in the hideTimeout variable
             hideTimeout = setTimeout(function() {
                 alreadyIn.style.display = "none";
-            }, 5000); // 5000 milliseconds = 5 seconds
+            }, 15000);
         }
-    }    
+
+        exitError.addEventListener("click", () => {
+            alreadyIn.style.display = "none";
+        })
+    }  
+
 });
-
-
-
-
-
-
 
 let prevSample = null;
 let currentAudioContext = null;

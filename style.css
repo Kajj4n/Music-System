@@ -793,25 +793,63 @@ span{
 }
 
 #sng-alrdy-in-pl{
+  background: rgba(78, 78, 78, 0.24);
+  backdrop-filter: blur(60px);
   border-radius: 5px;
   width: 500px;
-  height: 36px;
+  height: max-content;
   position: absolute;
   display: none;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   bottom: 0;
   left: 0;
-  
+  padding: 20px;
 }
 
 #sng-alrdy-in-pl h3{
   color: white;
   margin-left: 10px;
   display: flex;
+  font-size: 40px;
   align-items: center;
+  left: 0;
+  justify-content: space-between;
 }
 
-#sng-alrdy-in-pl h3 > img{
-  height: 20px;
+#sng-alrdy-in-pl p{
+  color: white;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  margin-bottom: 0;
+  line-height: 25px;
+  font-weight: 300;
+}
+#sng-alrdy-in-pl h3 > span:nth-child(1){
+  margin-left: 0;
+  font-size: 20px;
+}
+
+#sng-alrdy-in-pl h3 > span:nth-child(2){
+  margin-left: 0;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#sng-alrdy-in-pl span{
+  color: white;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  justify-self: flex-end;
+}
+
+#sng-alrdy-in-pl h3 > span:nth-child(1) > img{
+  display: flex;
+  height: 25px;
   margin-right: 10px;
 }
+
