@@ -69,6 +69,7 @@ main{
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .right-expanded {
@@ -323,17 +324,12 @@ nav > button{
   margin-top: 20px;
 }
 
-#context{
-  margin-top: 20px;
-
-}
-
 .card-left{
   height: 100%;
   display: flex;
 }
 
-h3{
+h3, #pplr-txt{
   color: white;
   margin-left: 12px; 
   font-weight: 500; 
@@ -343,6 +339,10 @@ h3{
 
 }
 
+#pplr-txt{
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
 
 h4, .artist{
   color: #B3B3B3;
@@ -782,4 +782,36 @@ span{
 
 .keyboard__key--dark {
   background: rgba(0, 0, 0, 0.25);
+}
+
+#spn-txt{
+  color: white;
+  font-family: 'Inter';
+  line-height: 30px;
+  margin-left: 0px;
+  font-size: 16px;
+}
+
+#sng-alrdy-in-pl{
+  border-radius: 5px;
+  width: 500px;
+  height: 36px;
+  position: absolute;
+  display: none;
+  align-items: center;
+  bottom: 0;
+  left: 0;
+  
+}
+
+#sng-alrdy-in-pl h3{
+  color: white;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+#sng-alrdy-in-pl h3 > img{
+  height: 20px;
+  margin-right: 10px;
 }

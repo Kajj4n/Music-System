@@ -33,29 +33,39 @@ document.addEventListener("DOMContentLoaded", () => {
     const main = document.getElementById("main");
     const playPause = document.querySelectorAll(".play-pause");
     const exitSearchClick = document.getElementById("exit-search");
-    libraryTitle.style.display = "none"
+    const lngImg = document.getElementById("lng-img");
 
+    libraryTitle.style.display = "none"
+    lngImg.style.background = `url("/images/svFlag.png") center center / cover no-repeat`
+
+    lngImg.addEventListener("click", translateLng)
     for (let i = 0; i < playPause.length; i++){
         playPause[i].addEventListener("click", sample)
     }
-    
+
     let flag;
     searchBar.value = "";
-
-    
     expandTxt.addEventListener("click", expand)
     artistTxt.addEventListener("click", expand)
     function expand(){
 
         if(flag){
-            expandTxt.innerText = "Show more"
+            expandTxt.innerText = "Show More"
+
+            if(lngImg.style.background == `url("/images/gbFlag.jpg") center center / cover no-repeat`){
+                expandTxt.innerText = "Visa Mer"
+            }
             artistTxt.style.overflow = "hidden"
             artistTxt.style.height = "11vh"
             expandTxt.style.marginTop = 10 + "px"
             flag = false
             return
         }
-        expandTxt.innerText = "Show less"
+        expandTxt.innerText = "Show Less"
+
+        if(lngImg.style.background == `url("/images/gbFlag.jpg") center center / cover no-repeat`){
+            expandTxt.innerText = "Visa Mindre"
+        }
         expandTxt.style.marginTop = 0 + "px"
         artistTxt.style.overflow = "unset"
         artistTxt.style.height = "auto"
@@ -63,15 +73,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
     }
 
-
     function handleAction(actionType) {
-
-        // Assuming actionType is either "addToLib" or "playNext"
         if (actionType === 'playNext') {
             searchBar.focus();
         }
-    
-        // Add any other logic for handling these actions here
     }
 
     // Example of triggering handleAction based on action type
@@ -100,7 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        
         exitSearchClick.style.display = "flex"
         library.style.display = "flex";
         
@@ -113,10 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
         leftColumn.style.display = "none"
         rightColumn.style.gridColumn = "1/3"
         searchWrapper.style.width = 75.8 + "vw"
-
-        
-        
-
         searchGlass.style.opacity = "1"
     }
 
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         page.style.overflowY = "hidden"
 
-        if (tab.textContent === "UP NEXT") {
+        if (tab.textContent === "UP NEXT" || tab.textContent === "NÄSTA") {
             playlist.style.display = "flex";
             playlistTitle.style.display = "unset"
         } else {
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
             playlistTitle.style.display = "none"
         }
 
-        if (tab.textContent === "LYRICS") {
+        if (tab.textContent === "LYRICS" || tab.textContent === "LÅTTEXT") {
             lyrics.style.display = "grid";
         } else {
             lyrics.style.display = "none";
@@ -260,6 +260,40 @@ document.addEventListener("DOMContentLoaded", () => {
     fontSizeRange.addEventListener('input', function() {
         lyricsT.style.fontSize = fontSizeRange.value + 'px';
     });
+
+    function translateLng(){
+
+        const searchBtn = document.getElementById("search-btn")
+        const helpBTn = document.getElementById("help-btn")
+        const spnText = document.getElementById("spn-txt")
+        const pplrText = document.getElementById("pplr-txt")
+                
+        if (this.style.background == `url("/images/svFlag.png") center center / cover no-repeat`){
+            this.style.background = `url("/images/gbFlag.jpg") center center / cover no-repeat`;
+            
+            searchBtn.innerText = "Sök"
+            helpBTn.innerText = "Hjälp"
+            searchBar.placeholder = "Sök efter låtnamn, artist, album."
+            playlistTitle.textContent = "Nästa I spellista"
+            tabs[2].textContent = "NÄSTA"
+            tabs[1].textContent = "LÅTTEXT"
+            spnText.textContent = "Är känd för Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+            expandTxt.textContent = "Visa Mer"
+            pplrText.textContent = "Populära"
+            return
+        }
+        
+        this.style.background = `url("/images/svFlag.png") center center / cover no-repeat`
+        searchBtn.innerText = "Search"
+        helpBTn.innerText = "Help"
+        playlistTitle.textContent = "Next In Playlist"
+        searchBar.placeholder = "Search by song name, artist, album."
+        tabs[2].textContent = "UP NEXT"
+        tabs[1].textContent = "LYRICS"
+        spnText.textContent = "Is known for Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+        expandTxt.textContent = "Show Less"
+        pplrText.textContent = "Popular"
+    }
 });
 
 // Wrap the rest of your code in the DOMContentLoaded event listener
@@ -344,9 +378,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             artistSongsContainer.appendChild(cardDiv); // Append the card to the artist section
         });
     }
-    
-
-
 
     function updateMetaData(song, allSongs) {
         // Update main song details
@@ -371,7 +402,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         artistImageElement.style.backgroundImage = `url("${song.imageLink}")`;
         artistTextElement.innerHTML = `
             <p id="actl-text">
-                ${song.artist} is known for Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+                ${song.artist} <span id = "spn-txt">is known for Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</span>
             </p>
         `;
 
@@ -437,9 +468,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return rgbArray.map(channel => Math.max(0, Math.min(255, channel * factor)));
             }
         });
-        
-
-        
 
     }
 
@@ -471,7 +499,40 @@ document.addEventListener("DOMContentLoaded", async () => {
         return cardDiv;
     }
 
-    loadSongs();
+    loadSongs().then(() => {
+        const libIcons = document.querySelectorAll(".addlib");
+
+        for (let i = 0; i < libIcons.length; i++){
+            libIcons[i].addEventListener("click", addToPlaylist)
+        }
+    });
+
+
+    let hideTimeout; // Variable to store the timeout ID
+
+    function addToPlaylist() {
+        const alreadyIn = document.getElementById("sng-alrdy-in-pl");
+    
+        alreadyIn.style.display = "none";
+    
+        if (this.style.opacity == 1) {
+            alreadyIn.style.display = "none";
+            console.log("proceed");
+        } 
+        else if (this.style.opacity == 0.5) {
+            alreadyIn.style.display = "flex";
+    
+            // Clear any existing timeout before setting a new one
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+            }
+    
+            // Set a new timeout and store its ID in the hideTimeout variable
+            hideTimeout = setTimeout(function() {
+                alreadyIn.style.display = "none";
+            }, 5000); // 5000 milliseconds = 5 seconds
+        }
+    }    
 });
 
 
@@ -481,29 +542,104 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 let prevSample = null;
+let currentAudioContext = null;
+let currentSource = null;
+
+function playSample(audioUrl) {
+    // Stop any currently playing audio if necessary
+    if (currentAudioContext) {
+        currentAudioContext.close(); // Stop and close the current AudioContext
+        currentAudioContext = null;
+    }
+
+    // Create a new AudioContext for the new sample
+    currentAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Fetch and play the audio with fade-in/out
+    fetch(audioUrl)
+        .then(response => response.arrayBuffer())
+        .then(arrayBuffer => currentAudioContext.decodeAudioData(arrayBuffer))
+        .then(audioBuffer => {
+            const duration = audioBuffer.duration;
+            const maxStartTime = duration - 15;
+            const startTime = Math.random() * maxStartTime;
+
+            // Create a new source for the sample
+            const source = currentAudioContext.createBufferSource();
+            source.buffer = audioBuffer;
+
+            // Set up gain node for fade-in/fade-out
+            const gainNode = currentAudioContext.createGain();
+            source.connect(gainNode).connect(currentAudioContext.destination);
+
+            // Fade-in and fade-out settings
+            const fadeDuration = 2;
+            gainNode.gain.setValueAtTime(0, currentAudioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(1, currentAudioContext.currentTime + fadeDuration);
+            const fadeOutStart = currentAudioContext.currentTime + 15 - fadeDuration;
+            gainNode.gain.setValueAtTime(1, fadeOutStart);
+            gainNode.gain.linearRampToValueAtTime(0, fadeOutStart + fadeDuration);
+
+            // Start playing and assign source to global variable
+            source.start(0, startTime, 15);
+            currentSource = source;
+
+            // Reset visuals when playback ends
+            source.onended = () => {
+                currentAudioContext.close();
+                currentAudioContext = null;
+                currentSource = null;
+                if (prevSample) {
+                    prevSample.src = "/images/smplIcon.png";
+                    prevSample.parentElement.parentElement.style.background = "unset";
+                    prevSample.parentElement.parentElement.style.backdropFilter = "unset";
+                }
+                prevSample = null;
+            };
+        })
+        .catch(error => console.error("Error loading audio:", error));
+
+    
+}
+
+
 
 function sample() {
+    // If this sample is already playing, stop it and reset visuals
     if (prevSample === this) {
         this.src = "/images/smplIcon.png";
         this.parentElement.parentElement.style.background = "unset";
         this.parentElement.parentElement.style.backdropFilter = "unset";
+        
+        // Stop the current audio playback
+        if (currentAudioContext) {
+            currentAudioContext.close();
+            currentAudioContext = null;
+        }
+        
         prevSample = null;
         return;
     }
 
+    // Reset visuals of the previous sample if it exists
     if (prevSample) {
         prevSample.src = "/images/smplIcon.png";
         prevSample.parentElement.parentElement.style.background = "unset";
         prevSample.parentElement.parentElement.style.backdropFilter = "unset";
     }
 
+    // Set visuals for the new sample
     this.src = "/images/playing.png";
     this.parentElement.parentElement.style.background = "rgba(20, 20, 20, 0.24)";
     this.parentElement.parentElement.style.backdropFilter = "blur(33px)";
 
-    prevSample = this;
+    // Play the new sample
+    playSample('/audio/prepareForEscape.mp3');    
 
+    // Update prevSample to this one
+    prevSample = this;
 }
+
 function myFunction() {
     const notFound = document.getElementById("unfound");
     const input = document.getElementById('search');  // Get the search input
@@ -535,9 +671,7 @@ function myFunction() {
     // Show "unfound" only if no cards are visible
     notFound.style.display = anyVisible ? "none" : "flex";
     libraryT.style.justifyContent = anyVisible ? "start" : "center";
-
 }
-
 
 const Keyboard = {
     elements: {
@@ -793,6 +927,9 @@ const Keyboard = {
     },
 };
 
+
 window.addEventListener("DOMContentLoaded", function () {
     Keyboard.init();
 });
+
+
