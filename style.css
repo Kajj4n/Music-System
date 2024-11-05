@@ -37,7 +37,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("songImages/mountains.png") center center / cover no-repeat;
+  background: url("") center center / cover no-repeat;
   filter: blur(7px) brightness(0.15) contrast(1);
   box-shadow: inset 0 0 550px rgba(0, 0, 0, 0.7);
   z-index: -1; 
@@ -119,7 +119,7 @@ nav > button{
   aspect-ratio: 1/1;
   width: 65vh;
   background: url("songImages/blood.png") rgb(0, 0, 0) 100% / cover no-repeat;
-  box-shadow: 10px -200px 300px 0px rgba(0, 0, 0, 0.5) inset;
+  box-shadow: 0px -84px 59px -26px rgba(0, 0, 0, 0.5) inset;
   border-radius: 10px;
   display: flex;
 }
@@ -597,14 +597,15 @@ input[type=range][orient=vertical]:active::-moz-range-thumb{
   margin: 0;
 }
 
-#song-audio-slider::-webkit-slider-runnable-track{
+/* WebKit-based browsers (Chrome, Safari, Edge) */
+#song-audio-slider::-webkit-slider-runnable-track {
   background-color: white;
   border-radius: 10px;
   height: 4px;
 }
 
-#song-audio-slider::-webkit-slider-thumb{
-  -webkit-appearance: none; 
+#song-audio-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
   appearance: none;
   margin-top: -5px;
   background-color: white;
@@ -612,6 +613,55 @@ input[type=range][orient=vertical]:active::-moz-range-thumb{
   width: 15px;
   border-radius: 50%;
 }
+
+/* Firefox */
+#song-audio-slider::-moz-range-track {
+  background-color: white;
+  border-radius: 10px;
+  height: 4px;
+}
+
+#song-audio-slider::-moz-range-thumb {
+  background-color: white;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  border: none; /* Firefox may add a default border around the thumb */
+  margin-top: 0; /* Firefox centers the thumb by default, so no negative margin needed */
+}
+
+/* Additional for Internet Explorer (if needed) */
+#song-audio-slider::-ms-track {
+  background-color: white;
+  border-radius: 10px;
+  height: 4px;
+  border-color: transparent; /* Hide extra track elements that IE may add */
+  color: transparent;
+}
+
+#song-audio-slider::-ms-thumb {
+  appearance: none;
+  background-color: white;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+}
+
+
+/* Increased size when active (clicked/held) */
+/* Chrome, Safari, and Edge */
+#song-audio-slider:active::-webkit-slider-thumb {
+  width: 45px; /* Increase size when active */
+  height: 45px; /* Increase size when active */
+}
+
+/* Firefox */
+#song-audio-slider:active::-moz-range-thumb {
+  width: 45px; /* Increase size when active */
+  height: 45px; /* Increase size when active */
+  margin-top: -20px;
+}
+
 
 
 #artist-txt{
@@ -659,3 +709,77 @@ span{
   justify-self: center;
 }
 
+.text-area {
+  padding: 5px;
+  width: calc(100vw - 30px);
+  height: calc(100vh - 295px);
+}
+
+.keyboard {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 5px 0;
+  background: rgba(20, 20, 20, 0.24);
+  backdrop-filter: blur(60px);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  transition: bottom 0.4s;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.keyboard--hidden {
+  bottom: -100%;
+}
+
+.keyboard__keys {
+  text-align: center;
+}
+
+.keyboard__key {
+  height: 45px;
+  width: 6%;
+  max-width: 90px;
+  margin: 3px;
+  border-radius: 4px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 1.05rem;
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: top;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+
+.keyboard__key:active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.keyboard__key--wide {
+  width: 12%;
+}
+
+.keyboard__key span {
+  margin-left: 0px;
+  color: white;
+}
+
+.keyboard__key--extra--wide {
+  width: 36%;
+  max-width: 500px;
+} 
+
+.keyboard__key--active::after {
+  background: #08ff00;
+}
+
+.keyboard__key--dark {
+  background: rgba(0, 0, 0, 0.25);
+}

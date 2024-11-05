@@ -33,8 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const main = document.getElementById("main");
     const playPause = document.querySelectorAll(".play-pause");
     const exitSearchClick = document.getElementById("exit-search");
-
-
     libraryTitle.style.display = "none"
 
     for (let i = 0; i < playPause.length; i++){
@@ -42,6 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     let flag;
+    searchBar.value = "";
+
     
     expandTxt.addEventListener("click", expand)
     artistTxt.addEventListener("click", expand)
@@ -123,37 +123,41 @@ document.addEventListener("DOMContentLoaded", () => {
     function exitSearch() {
         const next = document.querySelectorAll("#playlist .next");
         const libIcon = document.querySelectorAll("#playlist .addlib");
-        playlistTitle.style.display = "unset"
-        libraryTitle.style.display = "none"
-
+        playlistTitle.style.display = "unset";
+        libraryTitle.style.display = "none";
+    
+        searchBar.value = "";
+    
         library.style.display = "none";
         prevElem.style.display = prevDisp;
-        searchWrapper.style.borderBottom = 2+"px solid #5E5E5E"
-        searchGlass.style.opacity = "0.5"
+        searchWrapper.style.borderBottom = "2px solid #5E5E5E";
+        searchGlass.style.opacity = "0.5";
+        
         Array.from(leftColumnChildren).forEach(child => {
             child.classList.remove("offscreen");
         });
-        exitSearchClick.style.display = "none"
-        leftColumn.style.overflowX = "unset"
+        exitSearchClick.style.display = "none";
+        leftColumn.style.overflowX = "unset";
+        leftColumn.style.display = "flex";
+        rightColumn.style.gridColumn = "2/3";
+        searchWrapper.style.width = "41vw";
         
-        leftColumn.style.display = "flex"
-        rightColumn.style.gridColumn = "2/3"
-        searchWrapper.style.width = 41 + "vw"
-        
-        for(let i = 0; i < next.length; i++){
-            next[i].style.display = "none"
-            libIcon[i].style.display = "none"
+        for (let i = 0; i < next.length; i++) {
+            next[i].style.display = "none";
+            libIcon[i].style.display = "none";
         }
-
-
-        
+    
         let crntTab = document.getElementById("crnt-tab");
-
-        if(crntTab.textContent == "ARTIST"){
-            page.style.overflowY = "scroll"
-            playlistTitle.style.display = "none"
+    
+        if (crntTab.textContent == "ARTIST") {
+            page.style.overflowY = "scroll";
+            playlistTitle.style.display = "none";
         }
+    
+        // Hide the virtual keyboard
+        Keyboard.close();
     }
+    
 
     // Select only the <p> inside the #lyrics container
     const lyricsParagraph = document.querySelector("#lyrics p");
@@ -201,11 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
             for (let i = 0; i < artists.length; i++){
                 plays[i].style.display = "unset"
                 artists[i].style.display = "none"
-    
-            }
-            console.log(artists)
-    
-
+            }    
 
         } else {
             artist.style.display = "none";
@@ -249,24 +249,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Set the new current time based on the clicked position
         audio.currentTime = (clickX / width) * duration;
     });
-
-
-// async function to extract the color palette
-function extractColor(image) {
-    return new Promise((resolve) => {
-        const getPalette = () => colorThief.getPalette(image, 4);
-
-        if (image.complete) {
-            return resolve(getPalette());
-        }
-
-        image.onload = () => {
-            resolve(getPalette());
-        };
-    });
-}
-
-
 
     const fontSizeRange = document.getElementById('font-size-slider');
     const lyricsT = document.getElementById('lyrics-txt');
@@ -404,31 +386,25 @@ document.addEventListener("DOMContentLoaded", async () => {
             const bgImageUrl = window.getComputedStyle(mainImageDiv).backgroundImage;
             const imageUrl = bgImageUrl.slice(5, -2); // Stripping off the 'url("")' part
         
-            // Log the extracted image URL
-            console.log("Extracted Image URL:", imageUrl);
-        
             // Create a temporary image element to load the background image
             const tempImage = new Image();
             tempImage.crossOrigin = "Anonymous"; // Handle CORS if needed
             tempImage.src = imageUrl;
         
             tempImage.onload = async function () {
-                console.log("Image loaded successfully!");
-        
                 // Get the color palette from the image using ColorThief
                 const palette = await extractColor(tempImage);
-        
-                // Log the extracted palette to verify
-                console.log("Extracted Palette:", palette);
-        
                 const primary = palette[0]; // RGB array, e.g., [r, g, b]
         
-                // Apply the primary color to each .adaptive-clr element
+                // Darken the primary color by 20%
+                const darkenedPrimary = darkenColor(primary, 0.8);
+        
+                // Apply the darkened primary color to each .adaptive-clr element
                 adaptiveClrs.forEach((adaptiveClr) => {
-                    adaptiveClr.style.background = `rgb(${primary.join(",")})`;
+                    adaptiveClr.style.background = `rgb(${darkenedPrimary.join(",")})`;
         
                     // Calculate luminance to determine if the color is bright
-                    const luminance = (0.299 * primary[0] + 0.587 * primary[1] + 0.114 * primary[2]) / 255;
+                    const luminance = (0.299 * darkenedPrimary[0] + 0.587 * darkenedPrimary[1] + 0.114 * darkenedPrimary[2]) / 255;
         
                     // Set image color based on luminance
                     const img = adaptiveClr.querySelector("img");
@@ -437,12 +413,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                     } else {
                         img.style.filter = "brightness(1)"; // Keeps the image original color
                     }
-        
-                    console.log(`Applied color rgb(${primary.join(",")}) to`, adaptiveClr);
                 });
+    
             };
         
-            // Async function to extract the color palette
+            // Function to extract color palette
             function extractColor(image) {
                 return new Promise((resolve) => {
                     const getPalette = () => colorThief.getPalette(image, 4);
@@ -456,7 +431,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                     };
                 });
             }
+        
+            // Function to darken the color by applying a factor
+            function darkenColor(rgbArray, factor) {
+                return rgbArray.map(channel => Math.max(0, Math.min(255, channel * factor)));
+            }
         });
+        
+
         
 
     }
@@ -556,3 +538,261 @@ function myFunction() {
 
 }
 
+
+const Keyboard = {
+    elements: {
+        main: null,
+        keysContainer: null,
+        keys: [],
+        capsKey: null,
+    },
+
+    properties: {
+        value: "",
+        capsLock: false,
+        keyboardInputs: null,
+        keyLayout: [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "0",
+            "backspace",
+            "q",
+            "w",
+            "e",
+            "r",
+            "t",
+            "y",
+            "u",
+            "i",
+            "o",
+            "p",
+            "caps",
+            "a",
+            "s",
+            "d",
+            "f",
+            "g",
+            "h",
+            "j",
+            "k",
+            "l",
+            "enter",
+            "done",
+            "z",
+            "x",
+            "c",
+            "v",
+            "b",
+            "n",
+            "m",
+            ",",
+            ".",
+            "?",
+            "space",
+        ],
+    },
+
+    init() {
+        // create and setup main element
+        this.elements.main =
+            document.createElement("div");
+        this.elements.main.classList
+            .add("keyboard", "keyboard--hidden");
+        document.body
+            .appendChild(this.elements.main);
+
+        // create and setup child container component
+        this.elements.keysContainer =
+            document.createElement("div");
+        this.elements.keysContainer
+            .classList.add("keyboard__keys");
+        this.elements.main
+            .appendChild(this.elements.keysContainer);
+
+        // create and setup key elements
+        this.elements.keysContainer
+            .appendChild(this._createKeys());
+        this.elements.keys =
+            this.elements.keysContainer
+                .querySelectorAll(".keyboard__key");
+
+        // open keyboard for elements with .use-keyboard-input
+        this.properties.keyboardInputs =
+            document.querySelectorAll(
+                ".use-keyboard-input"
+            );
+        this.properties
+            .keyboardInputs
+            .forEach((element) => {
+                element.addEventListener("focus", () => {
+                    this
+                        .open(element.value, (currentValue) => {
+                            element.value = currentValue;
+                        });
+                });
+            });
+    },
+
+    _createIconHTML(icon_name) {
+        return `<span class="material-icons">${icon_name}</span>`;
+    },
+
+    _createKeyBtn(iconName, class1, onclick, class2) {
+        this.keyElement =
+            document.createElement("button");
+
+        // add common attributes and classes
+        this.keyElement
+            .setAttribute("type", "button");
+        this.keyElement
+            .classList.add("keyboard__key");
+
+        // add specific listeners and classes
+        this.keyElement
+            .classList.add(class1, class2);
+        this.keyElement.innerHTML =
+            this._createIconHTML(iconName);
+        this.keyElement
+            .addEventListener("click", onclick);
+    },
+
+    _createKeys() {
+        const fragment =
+            document.createDocumentFragment();
+
+        this.properties.keyLayout.forEach((key) => {
+            const insertLineBreak =
+                ["backspace", "p", "enter", "?"].indexOf(key) !== -1;
+
+            switch (key) {
+                case "backspace":
+                    this._createKeyBtn(
+                        "Delete", "keyboard__key--wide",
+                        () => {
+                            this.properties.value =
+                                this.properties.value.slice(0, -1);
+                            this._updateValueInTarget();
+                        });
+                    break;
+
+                case "caps":
+                    this._createKeyBtn(
+                        "Capslock",
+                        "keyboard__key--activatable",
+                        () => {
+                            this.elements.capsKey
+                                .classList
+                                .toggle("keyboard__key--active");
+                            this._toggleCapsLock();
+                        },
+                        "keyboard__key--wide"
+                    );
+                    this.elements.capsKey = this.keyElement;
+                    break;
+
+                case "enter":
+                    this._createKeyBtn(
+                        "Clear", "keyboard__key--wide",
+                        () => {
+                            this.properties.value = "";
+                            this._updateValueInTarget();
+                        });
+                    break;
+
+                case "space":
+                    this._createKeyBtn(
+                        "", "keyboard__key--extra--wide",
+                        () => {
+                            this.properties.value += " ";
+                            this._updateValueInTarget();
+                        });
+                    break;
+
+                case "done":
+                    this._createKeyBtn(
+                        "Close",
+                        "keyboard__key--dark",
+                        () => {
+                            this.close();
+                            this._updateValueInTarget();
+                            this.style.border = 1 + "px solid white"
+                        },
+                        "keyboard__key--wide"
+                    );
+                    break;
+
+                default:
+                    this._createKeyBtn();
+                    this.keyElement.textContent =
+                        key.toLowerCase();
+
+                    this.keyElement
+                        .addEventListener(
+                            "click",
+                            () => {
+                                this.properties.value +=
+                                    this.properties.capsLock
+                                        ? key.toUpperCase()
+                                        : key.toLowerCase();
+                                this._updateValueInTarget();
+                            });
+                    break;
+            }
+
+            fragment.appendChild(this.keyElement);
+
+            if (insertLineBreak) {
+                fragment
+                    .appendChild(document.createElement("br"));
+            }
+        });
+        return fragment;
+    },
+
+    _updateValueInTarget() {
+        this.properties.keyboardInputs.forEach((keyboard) => {
+            keyboard.value = this.properties.value;
+        });
+        myFunction();  // Trigger the search function on each input update
+    },
+
+    _toggleCapsLock() {
+        this.properties.capsLock =
+            !this.properties.capsLock;
+
+        for (let key of this.elements.keys) {
+            if (key.childElementCount === 0) {
+                key.textContent =
+                    this.properties.capsLock
+                        ? key.textContent.toUpperCase()
+                        : key.textContent.toLowerCase();
+            }
+        }
+    },
+
+    open(initialValue, oninput) {
+        this.properties.value =
+            initialValue || "";
+        this.elements.main
+            .classList
+            .remove("keyboard--hidden");
+    },
+
+    close() {
+        this.properties.value =
+            this.properties.value;
+        this.elements.main
+            .classList.add("keyboard--hidden");
+    },
+};
+
+window.addEventListener("DOMContentLoaded", function () {
+    Keyboard.init();
+});
