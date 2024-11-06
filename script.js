@@ -1,7 +1,21 @@
 let exitError
+
+let alreadyIn 
+let firstSpan 
+let subTxt 
+let confirmBtns 
+let confirmBtnsAll 
+let playNext
+let guide
+let guideExt
 // Wrap the rest of your code in the DOMContentLoaded event listener
 document.addEventListener("DOMContentLoaded", () => {
-
+    guide = document.getElementById("guide")
+    guideExt = document.getElementById("guide-ext")
+    firstSpan = document.getElementById("one");  
+    const subTxt = document.getElementById("sub-txt")
+    const confirmBtns = document.getElementById("cnfrm-btns")
+    const confirmBtnsAll = document.querySelectorAll(".confirm")
     const searchGlass = document.getElementById("search-glass")
     const searchWrapper = document.querySelector(".search-wrapper")
     const leftColumn = document.getElementById('left-clmn');
@@ -44,6 +58,15 @@ document.addEventListener("DOMContentLoaded", () => {
         playPause[i].addEventListener("click", sample)
     }
 
+    guideExt.addEventListener("click", () => {
+        guide.style.display = "none"
+    })
+
+    addToLib.addEventListener("click", () => {
+        guide.style.display = "unset"
+    })
+   
+    
     let flag;
     searchBar.value = "";
     expandTxt.addEventListener("click", expand)
@@ -488,8 +511,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             </div>
             <div class="card-right">
                 <p>${song.length}</p>
-                <img class="addlib" src="/images/libIcon.png" style="opacity: ${isInPlaylist ? '0.5' : '1'};">
-                <img class="next" src="/images/next.png">
+                <img data-song-id="${song.id}" class="addlib" src="/images/libIcon.png" style="opacity: ${isInPlaylist ? '0.5' : '1'};">
+                <img class="next" src="/images/next.png" data-song-id="${song.id2}">
                 <img class="play-pause" src="/images/smplIcon.png">
             </div>
         `;
@@ -502,43 +525,223 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     loadSongs().then(() => {
         const libIcons = document.querySelectorAll(".addlib");
+        const playNext = document.querySelectorAll(".next");
+
 
         for (let i = 0; i < libIcons.length; i++){
             libIcons[i].addEventListener("click", addToPlaylist)
+            playNext[i].addEventListener("click", playSongNext)
         }
     });
 
 
     let hideTimeout; // Variable to store the timeout ID
+    let sngCopy;
+    let crntThis;
 
-    function addToPlaylist() {
-        const alreadyIn = document.getElementById("sng-alrdy-in-pl");    
+    // Define variables and event listeners once outside of `addToPlaylist`
+alreadyIn = document.getElementById("sng-alrdy-in-pl");
+ firstSpan = document.getElementById("one");
+subTxt = document.getElementById("sub-txt");
+confirmBtns = document.getElementById("cnfrm-btns");
+confirmBtnsAll = document.querySelectorAll(".confirm");
+playlistT = document.getElementById("playlist");
+
+// Flag to prevent multiple additions
+let songAdded = false;
+
+// Set up confirmation button event listeners once
+confirmBtnsAll[0].addEventListener("click", addorClose);
+confirmBtnsAll[1].addEventListener("click", addorClose);
+
+function addToPlaylist() {
+    // Reset the songAdded flag to false whenever addToPlaylist is called
+    songAdded = false;
+
+    crntThis = this;
+    firstSpan.innerHTML = '<img src="/images/error.png" alt="">Add song to the playlist?';
+    subTxt.innerText = "";
+    subTxt.style.display = "none"
+    confirmBtns.style.display = "flex";
+    confirmBtnsAll[0].textContent = "Yes";
+    confirmBtnsAll[1].textContent = "No";
+
+    if (this.style.opacity == 1) {
+        alreadyIn.style.display = "flex";
+        sngCopy = this.parentElement.parentElement.outerHTML;
+
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = sngCopy;
+
+        const playsElement = tempDiv.querySelector(".plays");
+        if (playsElement) {
+            playsElement.style.display = "none";
+        }
+
+        const artistElement = tempDiv.querySelector(".artist");
+        if (artistElement) {
+            artistElement.style.display = "unset";
+        }
+
+        const playPauseIcon = tempDiv.querySelector('.play-pause');
+        if (playPauseIcon) {
+            playPauseIcon.addEventListener('click', sample);
+        }
+
+        sngCopy = tempDiv.innerHTML;
+        const songId = this.getAttribute("data-song-id");
+        crntThis.dataset.songId = songId;
+    } else if (this.style.opacity == 0.5) {
+        subTxt.style.display = "unset";
+        alreadyIn.style.display = "flex";
+        firstSpan.innerHTML = `<img src="/images/error.png" alt=""> Song Couldn't Be Added To the Playlist`;
+        subTxt.innerText = "The following song has already been added to the playlist Queue. Try again later when the song is not in the playlist Queue.";
+        confirmBtns.style.display = "none";
+    }
+
+    // Handle closing error message
+    exitError.addEventListener("click", () => {
         alreadyIn.style.display = "none";
-    
-        if (this.style.opacity == 1) {
+    });
+}
+
+function addorClose() {
+    // Only proceed if the song has not already been added
+    if (this.textContent == "Yes" && !songAdded) {
+        songAdded = true;  // Set flag to true to prevent further additions
+
+        firstSpan.innerHTML = `<img src="/images/error.png" alt="">Song Has Been Added To The Playlist!`;
+        subTxt.style.display = "none";
+        confirmBtns.style.display = "none";
+
+        const songElement = document.createElement('div');
+        songElement.innerHTML = sngCopy;
+
+        const newPlayPauseIcon = songElement.querySelector('.play-pause');
+        if (newPlayPauseIcon) {
+            newPlayPauseIcon.addEventListener('click', sample);
+        }
+
+        playlistT.appendChild(songElement.firstElementChild);
+
+        const songId = crntThis.getAttribute("data-song-id");
+        const allInstances = document.querySelectorAll(`[data-song-id="${songId}"]`);
+        allInstances.forEach(instance => {
+            instance.style.opacity = "0.5";
+        });
+
+        if (hideTimeout) {
+            clearTimeout(hideTimeout);
+        }
+
+        hideTimeout = setTimeout(function() {
             alreadyIn.style.display = "none";
-            console.log("proceed");
-        } 
-        else if (this.style.opacity == 0.5) {
+        }, 5000);
+    }
+
+    if (this.textContent == "No") {
+        alreadyIn.style.display = "none";
+
+        if (hideTimeout) {
+            clearTimeout(hideTimeout);
+        }
+
+        hideTimeout = setTimeout(function() {
+            alreadyIn.style.display = "none";
+        }, 5000);
+    }
+}
+
+    
+    
+    
+    let beenScanned
+
+    function playSongNext() {
+        // Elements for display and confirmation
+        alreadyIn = document.getElementById("sng-alrdy-in-pl");
+        firstSpan = document.getElementById("one");
+        subTxt = document.getElementById("sub-txt");
+        confirmBtns = document.getElementById("cnfrm-btns");
+        confirmBtnsAll = document.querySelectorAll(".confirm");
+    
+        // Reference to the current "next" button and its song ID
+        const currentNextButton = this;
+        const songId = this.getAttribute("data-song-id"); // Get song's unique ID
+    
+        // Set up confirmation buttons
+        confirmBtnsAll[0].textContent = "Scanned";
+        confirmBtnsAll[1].textContent = "Not Scanned";
+        
+        for (let i = 0; i < confirmBtnsAll.length; i++) {
+            confirmBtnsAll[i].addEventListener("click", nextOrNot);
+        }
+    
+        // Close error dialog on clicking exit
+        exitError.addEventListener("click", () => {
+            alreadyIn.style.display = "none";
+        });
+    
+        // Show prompt to scan the check
+        alreadyIn.style.display = "flex";
+        subTxt.style.display = "unset";
+        firstSpan.innerHTML = '<img src="/images/error.png" alt="">Scan The Check';
+        subTxt.innerText = "Please scan the check that you received for your purchase to play the song next. If you don't have a check, it can be obtained by purchasing anything in the bar.";
+        confirmBtns.style.display = "flex";
+    
+        // Check if song is already marked to play next (opacity 0.5)
+        if (currentNextButton.style.opacity == "0.5" || beenScanned) {
+            subTxt.style.display = "unset";
             alreadyIn.style.display = "flex";
+            firstSpan.innerHTML = `<img src="/images/error.png" alt=""> Song Couldn't Be Played Next`;
+            subTxt.innerText = "A song has already been chosen to be played next. Wait until the next song starts to play and try again.";
+            confirmBtns.style.display = "none";
     
-            // Clear any existing timeout before setting a new one
-            if (hideTimeout) {
-                clearTimeout(hideTimeout);
-            }
+            if (hideTimeout) clearTimeout(hideTimeout);
     
-            // Set a new timeout and store its ID in the hideTimeout variable
             hideTimeout = setTimeout(function() {
                 alreadyIn.style.display = "none";
             }, 15000);
         }
+    
+        // Function to handle confirmation
+        function nextOrNot() {
+            // If "Not Scanned" is chosen
+            if (this.textContent === "Not Scanned") {
+                confirmBtns.style.display = "none";
+                subTxt.style.display = "unset";
+                firstSpan.innerHTML = '<img src="/images/error.png" alt="">Failed To Scan The Check';
+                subTxt.innerText = "Please try scanning the check again, and ensure that the check has not already been scanned. If the problem persists, talk to the available staff.";
+            }
+    
+            // If "Scanned" is chosen, update opacity for all buttons with the same song ID
+            if (this.textContent === "Scanned") {
+                const allNextButtons = document.querySelectorAll(`.next[data-song-id="${songId}"]`);
+    
+                allNextButtons.forEach(button => {
+                    button.style.opacity = "0.5";
+                });
 
-        exitError.addEventListener("click", () => {
-            alreadyIn.style.display = "none";
-        })
-    }  
+                beenScanned = true
+    
+                confirmBtns.style.display = "none";
+                firstSpan.innerHTML = '<img src="/images/error.png" alt="">The song is going to play next!';
+                subTxt.innerText = "The chosen song will start playing after the current one finishes. Enjoy the listen!";
+                subTxt.style.display = "unset";
+
+            }
+        }
+    }
+    
+    
+
+
+
 
 });
+
+
+
 
 let prevSample = null;
 let currentAudioContext = null;

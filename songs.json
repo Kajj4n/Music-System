@@ -1,5 +1,7 @@
 [
     {
+        "id": 1,
+        "id2": 10,
         "title": "Angel",
         "artist": "Dezz",
         "album": "Nu...",
@@ -9,6 +11,8 @@
         "plays": "134 278 945"
     },
     {
+        "id": 2,
+        "id2": 20,
         "title": "Blood Red",
         "artist": "Dezz",
         "album": "Ba...",
@@ -18,6 +22,8 @@
         "plays": "187 349 284"
     },
     {
+        "id": 3,
+        "id2": 30,
         "title": "Layers of Bricks",
         "artist": "Dezz",
         "album": "Nu...",
@@ -27,6 +33,8 @@
         "plays": "92 567 812"
     },
     {
+        "id": 4,
+        "id2": 40,
         "title": "Muay Fighter",
         "artist": "Dezz",
         "album": "Ba...",
@@ -36,6 +44,8 @@
         "plays": "157 893 624"
     },
     {
+        "id": 5,
+        "id2": 50,
         "title": "Gohan",
         "artist": "Dezz",
         "album": "Nu...",
@@ -45,6 +55,8 @@
         "plays": "143 005 321"
     },
     {
+        "id": 6,
+        "id2": 60,
         "title": "Stone Wall",
         "artist": "Waltuh",
         "album": "Making the Cook",
@@ -54,6 +66,8 @@
         "plays": "117 932 487"
     },
     {
+        "id": 7,
+        "id2": 70,
         "title": "Mountains",
         "artist": "Waltuh",
         "album": "I'm the Danger",
@@ -63,6 +77,8 @@
         "plays": "184 320 291"
     },
     {
+        "id": 8,
+        "id2": 80,
         "title": "Scary Ninja",
         "artist": "Waltuh",
         "album": "Making the Cook",
@@ -72,6 +88,8 @@
         "plays": "112 897 436"
     },
     {
+        "id": 9,
+        "id2": 90,
         "title": "Drinkable Potion",
         "artist": "Waltuh",
         "album": "I'm the Danger",
@@ -81,7 +99,9 @@
         "plays": "135 284 139"
     },
     {
-        "title": "Roman soldier",
+        "id": 10,
+        "id2": 100,
+        "title": "Roman Soldier",
         "artist": "Waltuh",
         "album": "Making the Cook",
         "imageLink": "/songImages/romanSoldier.png",
@@ -90,6 +110,8 @@
         "plays": "160 943 219"
     },
     {
+        "id": 11,
+        "id2": 110,
         "title": "I don't Know",
         "artist": "Gabagool",
         "album": "Just when I thought I was out",
@@ -99,6 +121,8 @@
         "plays": "120 048 730"
     },
     {
+        "id": 12,
+        "id2": 120,
         "title": "Best Lawyer",
         "artist": "Gabagool",
         "album": "They Pull Me Back In",
@@ -108,6 +132,8 @@
         "plays": "175 604 981"
     },
     {
+        "id": 13,
+        "id2": 130,
         "title": "Water Waves",
         "artist": "Gabagool",
         "album": "Just when I thought I was out",
@@ -117,6 +143,8 @@
         "plays": "110 437 290"
     },
     {
+        "id": 14,
+        "id2": 140,
         "title": "Wizzard",
         "artist": "Gabagool",
         "album": "They Pull Me Back In",
@@ -126,6 +154,8 @@
         "plays": "145 201 672"
     },
     {
+        "id": 15,
+        "id2": 150,
         "title": "Yuumi the Cat",
         "artist": "Gabagool",
         "album": "Just when I thought I was out",

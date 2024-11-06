@@ -491,6 +491,7 @@ input[type=range][orient=vertical]::-webkit-slider-thumb {
   background: url("images/band.png") center / cover no-repeat;
   display: flex;
   align-items: flex-end;
+  box-shadow: 0px -84px 59px -26px rgba(0, 0, 0, 0.5) inset;
 }
 
 #artist-img h2{
@@ -792,7 +793,7 @@ span{
   font-size: 16px;
 }
 
-#sng-alrdy-in-pl{
+#sng-alrdy-in-pl, #guide{
   background: rgba(78, 78, 78, 0.24);
   backdrop-filter: blur(60px);
   border-radius: 5px;
@@ -807,17 +808,31 @@ span{
   padding: 20px;
 }
 
-#sng-alrdy-in-pl h3{
+
+#guide{
+  display: none;
+}
+
+#guide-ext{
+  cursor: pointer;
+}
+
+#sng-alrdy-in-pl h3, #guide h3{
   color: white;
-  margin-left: 10px;
   display: flex;
   font-size: 40px;
   align-items: center;
-  left: 0;
+  margin-left: 0;
   justify-content: space-between;
 }
 
-#sng-alrdy-in-pl p{
+#guide span{
+  font-size: 20px;
+  margin-left: 0;
+}
+
+
+#sng-alrdy-in-pl p, #guide p{
   color: white;
   margin-left: 10px;
   display: flex;
@@ -826,6 +841,7 @@ span{
   margin-bottom: 0;
   line-height: 25px;
   font-weight: 300;
+  margin-left: 0;
 }
 #sng-alrdy-in-pl h3 > span:nth-child(1){
   margin-left: 0;
@@ -853,3 +869,30 @@ span{
   margin-right: 10px;
 }
 
+#cnfrm-btns{
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+
+#cnfrm-btns > button{
+  display: flex;
+  width: 155.2px;
+  height: 36px;
+  color: #000;
+  font-family: "circular";
+  font-size: 20px;
+  border-radius: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#context > .card {
+  margin-right: 0;
+}
