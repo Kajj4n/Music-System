@@ -7,8 +7,41 @@ let confirmBtnsAll
 let playNext
 let guide
 let guideExt
+let lngImg
+let playlistTitle
+let tabs
+const translations = {
+    "Add song to the playlist?": "Lägg till låt i spellistan?",
+    "Song Couldn't Be Added To the Playlist": "Låten kunde inte läggas till i spellistan",
+    "Song Has Been Added To The Playlist!" : "Låten har lagts till i spellistan!",
+    "The following song has already been added to the playlist Queue. Try again later when the song is not in the playlist Queue.":
+        "Följande låt har redan lagts till i spellistan. Försök igen senare när låten inte finns i spellistan.",
+    "Scan The Check": "Skanna kvittot",
+    "Please scan the check that you received for your purchase to play the song next. If you don't have a check, it can be obtained by purchasing anything in the bar.":
+        "Skanna kvittot som du fick vid köpet för att spela låten härnäst. Om du inte har ett kvitto, kan du få ett genom att köpa något i baren.",
+    "Song Couldn't Be Played Next": "Låten kunde inte spelas härnäst",
+    "A song has already been chosen to be played next. Wait until the next song starts to play and try again.":
+        "En låt har redan valts att spelas härnäst. Vänta tills nästa låt börjar spela och försök igen.",
+    "Failed To Scan The Check": "Kunde inte skanna kvittot",
+    "Please try scanning the check again, and ensure that the check has not already been scanned. If the problem persists, talk to the available staff.":
+        "Försök att skanna kvittot igen och se till att det inte redan har skannats. Om problemet kvarstår, tala med personalen.",
+    "The song is going to play next!": "Låten kommer att spelas härnäst!",
+    "The chosen song will start playing after the current one finishes. Enjoy the listen!":
+        "Den valda låten börjar spelas när den nuvarande är klar. Trevlig lyssning!",
+    "Scanned" : "Scannad",
+    "Not scanned" : "Inte scannad",
+    "Yes" : "Ja",
+    "No" : "Nej"
+};
+
+
+
+let searchBar
+let expandTxt
 // Wrap the rest of your code in the DOMContentLoaded event listener
 document.addEventListener("DOMContentLoaded", () => {
+
+    
     guide = document.getElementById("guide")
     guideExt = document.getElementById("guide-ext")
     firstSpan = document.getElementById("one");  
@@ -25,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentTimeElement = document.getElementById('current-time');
     const durationElement = document.getElementById('duration');
     const progressBar = document.getElementById('progress-bar');
-    const tabs = document.querySelectorAll(".tab");
+    tabs = document.querySelectorAll(".tab");
     const cards = document.querySelectorAll(".adaptive-clr");
     const sngCards = document.querySelectorAll(".card");
     const lyrics = document.getElementById("lyrics");
@@ -33,20 +66,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const tab = document.getElementById("crnt-tab");
     const page = document.getElementById("crnt-page");
     const ctaHolder = document.getElementById("cta-holder");
-    const searchBar = document.getElementById("search");
+    searchBar = document.getElementById("search");
     const playlist = document.getElementById("playlist");
-    const playlistTitle = document.getElementById("playlist-title");
+    playlistTitle = document.getElementById("playlist-title");
     const libraryTitle = document.getElementById("library-title");
     const library = document.getElementById("library");
     const supposedDisp = document.querySelectorAll("#crnt-page > div");
     const artistTxt = document.getElementById("artist-txt");
-    const expandTxt = document.getElementById("expand-txt");
+    expandTxt = document.getElementById("expand-txt");
     const addToLib = document.getElementById("add-lib");
     const playNext = document.getElementById("play-next");
     const main = document.getElementById("main");
     const playPause = document.querySelectorAll(".play-pause");
     const exitSearchClick = document.getElementById("exit-search");
-    const lngImg = document.getElementById("lng-img");
+    lngImg = document.getElementById("lng-img");
     exitError = document.getElementById("warn-ext");
 
     libraryTitle.style.display = "none"
@@ -70,10 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
         else if(guide.style.display == "unset"){
             guide.style.display = "none"
         }
-
-
-
-
     })
    
     
@@ -295,39 +324,7 @@ document.addEventListener("DOMContentLoaded", () => {
         lyricsT.style.fontSize = fontSizeRange.value + 'px';
     });
 
-    function translateLng(){
-
-        const searchBtn = document.getElementById("search-btn")
-        const helpBTn = document.getElementById("help-btn")
-        const spnText = document.getElementById("spn-txt")
-        const pplrText = document.getElementById("pplr-txt")
-                
-        if (this.style.background == `url("/images/svFlag.png") center center / cover no-repeat`){
-            this.style.background = `url("/images/gbFlag.jpg") center center / cover no-repeat`;
-            
-            searchBtn.innerText = "Sök"
-            helpBTn.innerText = "Hjälp"
-            searchBar.placeholder = "Sök efter låtnamn, artist, album."
-            playlistTitle.textContent = "Nästa I spellista"
-            tabs[2].textContent = "NÄSTA"
-            tabs[1].textContent = "LÅTTEXT"
-            spnText.textContent = "Är känd för Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-            expandTxt.textContent = "Visa Mer"
-            pplrText.textContent = "Populära"
-            return
-        }
-        
-        this.style.background = `url("/images/svFlag.png") center center / cover no-repeat`
-        searchBtn.innerText = "Search"
-        helpBTn.innerText = "Help"
-        playlistTitle.textContent = "Next In Playlist"
-        searchBar.placeholder = "Search by song name, artist, album."
-        tabs[2].textContent = "UP NEXT"
-        tabs[1].textContent = "LYRICS"
-        spnText.textContent = "Is known for Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-        expandTxt.textContent = "Show Less"
-        pplrText.textContent = "Popular"
-    }
+   
 });
 
 // Wrap the rest of your code in the DOMContentLoaded event listener
@@ -582,66 +579,83 @@ document.addEventListener("DOMContentLoaded", async () => {
     confirmBtnsAll[0].addEventListener("click", addorClose);
     confirmBtnsAll[1].addEventListener("click", addorClose);
 
-function addToPlaylist() {
-    // Reset the songAdded flag to false whenever addToPlaylist is called
-    songAdded = false;
+    function addToPlaylist() {
+        // Reset the songAdded flag to false whenever addToPlaylist is called
+        songAdded = false;
+        crntThis = this;
+        
+        // Add translations for the text inside firstSpan and subTxt
+        firstSpan.innerHTML = `<img src="/images/error.png" alt="">${toggleTranslation("Add song to the playlist?")}`;
 
-    crntThis = this;
-    firstSpan.innerHTML = '<img src="/images/error.png" alt="">Add song to the playlist?';
-    subTxt.innerText = "";
-    subTxt.style.display = "none"
-    confirmBtns.style.display = "flex";
-    confirmBtnsAll[0].textContent = "Yes";
-    confirmBtnsAll[1].textContent = "No";
-    hideElementAfterDelay(alreadyIn)
-
-
-    if (this.style.opacity == 1) {
-        alreadyIn.style.display = "flex";
-        sngCopy = this.parentElement.parentElement.outerHTML;
-
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = sngCopy;
-
-        const playsElement = tempDiv.querySelector(".plays");
-        if (playsElement) {
-            playsElement.style.display = "none";
+        if(lngImg.style.background.includes("gbFlag.jpg")){
+             firstSpan.innerHTML = `<img src="/images/error.png" alt="">Lägg till låt i spellistan?`
         }
+        subTxt.innerText = "";
+        subTxt.style.display = "none";
+        confirmBtns.style.display = "flex";
+        
+        confirmBtnsAll[0].textContent = toggleTranslation("Yes");
+        confirmBtnsAll[1].textContent = toggleTranslation("No");
+        hideElementAfterDelay(alreadyIn);
+    
+        if (this.style.opacity == 1) {
+            alreadyIn.style.display = "flex";
+            sngCopy = this.parentElement.parentElement.outerHTML;
+    
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = sngCopy;
+    
+            const playsElement = tempDiv.querySelector(".plays");
+            if (playsElement) {
+                playsElement.style.display = "none";
+            }
+    
+            const artistElement = tempDiv.querySelector(".artist");
+            if (artistElement) {
+                artistElement.style.display = "unset";
+            }
+    
+            const playPauseIcon = tempDiv.querySelector('.play-pause');
+            if (playPauseIcon) {
+                playPauseIcon.addEventListener('click', sample);
+            }
+    
+            sngCopy = tempDiv.innerHTML;
+            const songId = this.getAttribute("data-song-id");
+            crntThis.dataset.songId = songId;
+        } else if (this.style.opacity == 0.5) {
+            subTxt.style.display = "unset";
+            alreadyIn.style.display = "flex";
+            firstSpan.innerHTML = `<img src="/images/error.png" alt="">${toggleTranslation("Song Couldn't Be Added To the Playlist")}`;
+            subTxt.innerText = toggleTranslation(
+                "The following song has already been added to the playlist Queue. Try again later when the song is not in the playlist Queue."
+            );
 
-        const artistElement = tempDiv.querySelector(".artist");
-        if (artistElement) {
-            artistElement.style.display = "unset";
+            if(lngImg.style.background.includes("gbFlag.jpg")){
+                firstSpan.innerHTML = `<img src="/images/error.png" alt="">Låten kunde inte läggas till i spellistan`;
+                subTxt.innerText = "Följande låt har redan lagts till i spellistan. Försök igen senare när låten inte finns i spellistan."
+        
+            }
+            confirmBtns.style.display = "none";
+            hideElementAfterDelay(alreadyIn);
         }
-
-        const playPauseIcon = tempDiv.querySelector('.play-pause');
-        if (playPauseIcon) {
-            playPauseIcon.addEventListener('click', sample);
-        }
-
-        sngCopy = tempDiv.innerHTML;
-        const songId = this.getAttribute("data-song-id");
-        crntThis.dataset.songId = songId;
-    } else if (this.style.opacity == 0.5) {
-        subTxt.style.display = "unset";
-        alreadyIn.style.display = "flex";
-        firstSpan.innerHTML = `<img src="/images/error.png" alt=""> Song Couldn't Be Added To the Playlist`;
-        subTxt.innerText = "The following song has already been added to the playlist Queue. Try again later when the song is not in the playlist Queue.";
-        confirmBtns.style.display = "none";
-        hideElementAfterDelay(alreadyIn)
+    
+        // Handle closing error message
+        exitError.addEventListener("click", () => {
+            alreadyIn.style.display = "none";
+        });
     }
-
-    // Handle closing error message
-    exitError.addEventListener("click", () => {
-        alreadyIn.style.display = "none";
-    });
-}
 
 function addorClose() {
     // Only proceed if the song has not already been added
     if (this.textContent == "Yes" && !songAdded) {
         songAdded = true;  // Set flag to true to prevent further additions
 
-        firstSpan.innerHTML = `<img src="/images/check.png" alt="">Song Has Been Added To The Playlist!`;
+        firstSpan.innerHTML = `<img src="/images/check.png" alt="">${toggleTranslation("Song Has Been Added To The Playlist!")}`;
+        if(lngImg.style.background.includes("gbFlag.jpg")){
+            firstSpan.innerHTML = `<img src="/images/check.png" alt=""> Låten har lagts till i spellistan!`;
+        }
+
         subTxt.style.display = "none";
         confirmBtns.style.display = "none";
         hideElementAfterDelay(alreadyIn)
@@ -684,8 +698,8 @@ function addorClose() {
         const songId = this.getAttribute("data-song-id"); // Get song's unique ID
     
         // Set up confirmation buttons
-        confirmBtnsAll[0].textContent = "Scanned";
-        confirmBtnsAll[1].textContent = "Not Scanned";
+        confirmBtnsAll[0].textContent = toggleTranslation("Scanned");
+        confirmBtnsAll[1].textContent = toggleTranslation("Not Scanned");
         
         for (let i = 0; i < confirmBtnsAll.length; i++) {
             confirmBtnsAll[i].addEventListener("click", nextOrNot);
@@ -699,8 +713,17 @@ function addorClose() {
         // Show prompt to scan the check
         alreadyIn.style.display = "flex";
         subTxt.style.display = "unset";
-        firstSpan.innerHTML = '<img src="/images/error.png" alt="">Scan The Check';
-        subTxt.innerText = "Please scan the check that you received for your purchase to play the song next. If you don't have a check, it can be obtained by purchasing anything in the bar.";
+        firstSpan.innerHTML = `<img src="/images/error.png" alt="">${toggleTranslation("Scan The Check")}`;
+        subTxt.innerText = toggleTranslation(
+            "Please scan the check that you received for your purchase to play the song next. If you don't have a check, it can be obtained by purchasing anything in the bar."
+        );
+
+        if(lngImg.style.background.includes("gbFlag.jpg")){
+            firstSpan.innerHTML = `<img src="/images/error.png" alt="">Skanna kvittot`;
+            subTxt.innerText = 
+                "Skanna kvittot som du fick vid köpet för att spela låten härnäst. Om du inte har ett kvitto, kan du få ett genom att köpa något i baren.";
+        }
+
         confirmBtns.style.display = "flex";
         hideElementAfterDelay(alreadyIn)
 
@@ -708,8 +731,16 @@ function addorClose() {
         if (currentNextButton.style.opacity == "0.5" || beenScanned) {
             subTxt.style.display = "unset";
             alreadyIn.style.display = "flex";
-            firstSpan.innerHTML = `<img src="/images/error.png" alt=""> Song Couldn't Be Played Next`;
-            subTxt.innerText = "A song has already been chosen to be played next. Wait until the next song starts to play and try again.";
+            firstSpan.innerHTML = `<img src="/images/error.png" alt="">${toggleTranslation("Song Couldn't Be Played Next")}`;
+            subTxt.innerText = toggleTranslation(
+                "A song has already been chosen to be played next. Wait until the next song starts to play and try again."
+            );
+            
+            if(lngImg.style.background.includes("gbFlag.jpg")){
+                firstSpan.innerHTML = `<img src="/images/error.png" alt="">Låten kunde inte spelas härnäst`;
+                subTxt.innerText = "En låt har redan valts att spelas härnäst. Vänta tills nästa låt börjar spela och försök igen.";
+            }  
+            
             confirmBtns.style.display = "none";
             hideElementAfterDelay(alreadyIn)
 
@@ -718,17 +749,23 @@ function addorClose() {
         // Function to handle confirmation
         function nextOrNot() {
             // If "Not Scanned" is chosen
-            if (this.textContent === "Not Scanned") {
+            if (this.textContent === toggleTranslation("Not Scanned")) {
                 confirmBtns.style.display = "none";
                 subTxt.style.display = "unset";
                 firstSpan.innerHTML = '<img src="/images/error.png" alt="">Failed To Scan The Check';
                 subTxt.innerText = "Please try scanning the check again, and ensure that the check has not already been scanned. If the problem persists, talk to the available staff.";
-                hideElementAfterDelay(alreadyIn)
 
+                
+                hideElementAfterDelay(alreadyIn)
+                
             }
+            if(lngImg.style.background.includes("gbFlag.jpg")){
+                firstSpan.innerHTML = `<img src="/images/error.png" alt="">Kunde inte skanna kvittot`;
+                subTxt.innerText = "Försök att skanna kvittot igen och se till att det inte redan har skannats. Om problemet kvarstår, tala med personalen.";
+            }        
     
             // If "Scanned" is chosen, update opacity for all buttons with the same song ID
-            if (this.textContent === "Scanned") {
+            if (this.textContent === toggleTranslation("Scanned")) {
                 const allNextButtons = document.querySelectorAll(`.next[data-song-id="${songId}"]`);
     
                 allNextButtons.forEach(button => {
@@ -738,8 +775,15 @@ function addorClose() {
                 beenScanned = true
     
                 confirmBtns.style.display = "none";
-                firstSpan.innerHTML = '<img src="/images/check.png" alt="">The song is going to play next!';
-                subTxt.innerText = "The chosen song will start playing after the current one finishes. Enjoy the listen!";
+                firstSpan.innerHTML = `<img src="/images/check.png" alt="">${toggleTranslation("The song is going to play next!")}`;
+                subTxt.innerText = toggleTranslation(
+                    "The chosen song will start playing after the current one finishes. Enjoy the listen!"
+                );
+
+                if(lngImg.style.background.includes("gbFlag.jpg")){
+                    firstSpan.innerHTML = `<img src="/images/check.png" alt="">Låten kommer att spelas härnäst!`;
+                    subTxt.innerText = "Den valda låten börjar spelas när den nuvarande är klar. Trevlig lyssning!";
+                }        
                 subTxt.style.display = "unset";
                 hideElementAfterDelay(alreadyIn)
 
@@ -747,11 +791,6 @@ function addorClose() {
             }
         }
     }
-    
-    
-
-
-
 
 });
 
@@ -1150,3 +1189,137 @@ window.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
+function translateLng(){
+    const searchBtn = document.getElementById("search-btn")
+    const helpBTn = document.getElementById("help-btn")
+    const spnText = document.getElementById("spn-txt")
+    const pplrText = document.getElementById("pplr-txt")
+    const guideTitle = document.getElementById("guide-ttl")
+    const gTxt1 = document.getElementById("txt-1")
+    const gTxt2 = document.getElementById("txt-2")
+    const gTxt3 = document.getElementById("txt-3")
+
+    let isSwedish = lngImg.style.background.includes("gbFlag.jpg");
+
+    // Toggle language flag and update background first
+    if (isSwedish) {
+        lngImg.style.background = `url("/images/gbFlag.jpg") center center / cover no-repeat`;
+    } else {
+        lngImg.style.background = `url("/images/svFlag.png") center center / cover no-repeat`;
+    }
+
+    // Refresh the language state after flag change
+    isSwedish = !isSwedish;
+
+    // Ensure `firstSpan` and `subTxt` are updated immediately when the language is toggled
+    if (firstSpan.innerHTML.includes("error.png")) {
+        firstSpan.innerHTML = `<img src="/images/error.png" alt="">${toggleTranslation(firstSpan.innerText, isSwedish)}`;
+    } else if (firstSpan.innerHTML.includes("check.png")) {
+        firstSpan.innerHTML = `<img src="/images/check.png" alt="">${toggleTranslation(firstSpan.innerText, isSwedish)}`;
+    }
+    
+    subTxt.innerText = toggleTranslation(subTxt.innerText, isSwedish);
+
+
+    if (lngImg.style.background == `url("/images/svFlag.png") center center / cover no-repeat`){
+        lngImg.style.background = `url("/images/gbFlag.jpg") center center / cover no-repeat`;
+        
+        searchBtn.innerText = "Sök"
+        helpBTn.innerText = "Hjälp"
+        searchBar.placeholder = "Sök efter låtnamn, artist, album."
+        playlistTitle.textContent = "Nästa I spellista"
+        tabs[2].textContent = "NÄSTA"
+        tabs[1].textContent = "LÅTTEXT"
+        spnText.textContent = "Är känd för Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+        expandTxt.textContent = "Visa Mer"
+        pplrText.textContent = "Populära"
+        guideTitle.textContent = "Gränssnittsguide"
+
+    gTxt1.innerHTML = `
+
+        Q - Hur do I add a song to the queue?<br>
+
+        <span>
+            A - To add a song to the queue, find the song of your choice and press
+            <img src="/images/libIcon.png" alt="" class="inline-icon"> to add it to the queue.
+        </span>
+    `
+
+    gTxt2.innerHTML = `
+
+        Q - Hur do I play a song next?<br>
+        
+        <span>
+            A - To play a song next, find the song of your choice and press 
+            <img src="/images/next.png" alt="" class="inline-icon">  to add it to play it next.
+        </span>
+    `
+
+        gTxt3.innerHTML = `
+
+        Q - Hur do I listen to a sample of a song?<br>
+        
+        <span>
+            A - To play a sample, find the song of your choice and press
+            <img src="/images/playIcon.png" alt="" class="inline-icon">  to play the sample.
+        </span>
+    `
+        return
+    }
+    
+    lngImg.style.background = `url("/images/svFlag.png") center center / cover no-repeat`
+    searchBtn.innerText = "Search"
+    helpBTn.innerText = "Help"
+    playlistTitle.textContent = "Next In Playlist"
+    searchBar.placeholder = "Search by song name, artist, album."
+    tabs[2].textContent = "UP NEXT"
+    tabs[1].textContent = "LYRICS"
+    spnText.textContent = "Is known for Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+    expandTxt.textContent = "Show Less"
+    pplrText.textContent = "Popular"
+    guideTitle.textContent = "Interface guide"
+
+
+    gTxt1.innerHTML = `
+
+    Q - How do I add a song to the queue?<br>
+
+    <span>
+        A - To add a song to the queue, find the song of your choice and press
+        <img src="/images/libIcon.png" alt="" class="inline-icon"> to add it to the queue.
+    </span>
+`
+
+    gTxt2.innerHTML = `
+
+        Q - How do I play a song next?<br>
+        
+        <span>
+            A - To play a song next, find the song of your choice and press 
+            <img src="/images/next.png" alt="" class="inline-icon">  to add it to play it next.
+        </span>
+    `
+
+        gTxt3.innerHTML = `
+
+        Q - How do I listen to a sample of a song?<br>
+        
+        <span>
+            A - To play a sample, find the song of your choice and press
+            <img src="/images/playIcon.png" alt="" class="inline-icon">  to play the sample.
+        </span>
+    `
+
+}
+
+
+// Helper function to toggle text translation
+function toggleTranslation(text, isSwedish) {
+    if (isSwedish) {
+        return translations[text] || text;  // English to Swedish
+    } else {
+        const englishText = Object.keys(translations).find(key => translations[key] === text);
+        return englishText || text;  // Swedish to English
+    }
+}
