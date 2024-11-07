@@ -11,7 +11,7 @@ let lngImg
 let playlistTitle
 let tabs
 const translations = {
-    "Add song to the playlist?": "Lägg till låt i spellistan?",
+    "Add song to the playlist?": "Lägg till denna låt i spellistan?",
     "Song Couldn't Be Added To the Playlist": "Låten kunde inte läggas till i spellistan",
     "Song Has Been Added To The Playlist!" : "Låten har lagts till i spellistan!",
     "The following song has already been added to the playlist Queue. Try again later when the song is not in the playlist Queue.":
@@ -1227,42 +1227,42 @@ function translateLng(){
         
         searchBtn.innerText = "Sök"
         helpBTn.innerText = "Hjälp"
-        searchBar.placeholder = "Sök efter låtnamn, artist, album."
-        playlistTitle.textContent = "Nästa I spellista"
+        searchBar.placeholder = "Sök efter låt, artist, album."
+        playlistTitle.textContent = "Nästa I Spellista"
         tabs[2].textContent = "NÄSTA"
-        tabs[1].textContent = "LÅTTEXT"
+        tabs[1].textContent = "TEXT"
         spnText.textContent = "Är känd för Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
         expandTxt.textContent = "Visa Mer"
-        pplrText.textContent = "Populära"
-        guideTitle.textContent = "Gränssnittsguide"
+        pplrText.textContent = "Populärast"
+        guideTitle.textContent = "Vanliga Frågor"
 
     gTxt1.innerHTML = `
 
-        Q - Hur do I add a song to the queue?<br>
+        Q - Hur lägger jag till en låt i kön?<br>
 
         <span>
-            A - To add a song to the queue, find the song of your choice and press
-            <img src="/images/libIcon.png" alt="" class="inline-icon"> to add it to the queue.
+            A - För att lägga till en låt i kön, hitta din låt och tryck på
+            <img src="/images/libIcon.png" alt="" class="inline-icon">
         </span>
     `
 
     gTxt2.innerHTML = `
 
-        Q - Hur do I play a song next?<br>
+        Q - Hur spelar jag min låt näst?<br>
         
         <span>
-            A - To play a song next, find the song of your choice and press 
-            <img src="/images/next.png" alt="" class="inline-icon">  to add it to play it next.
+            A - För att spela din låt näst, hitta din låt och tryck på
+            <img src="/images/next.png" alt="" class="inline-icon">
         </span>
     `
 
         gTxt3.innerHTML = `
 
-        Q - Hur do I listen to a sample of a song?<br>
+        Q - Hur lyssnar jag på en bit av en låt?<br>
         
         <span>
-            A - To play a sample, find the song of your choice and press
-            <img src="/images/playIcon.png" alt="" class="inline-icon">  to play the sample.
+            A - För att spela ett kort extrakt från en låt, hitta din låt och tryck på
+            <img src="/images/playIcon.png" alt="" class="inline-icon">
         </span>
     `
         return
@@ -1278,7 +1278,7 @@ function translateLng(){
     spnText.textContent = "Is known for Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
     expandTxt.textContent = "Show Less"
     pplrText.textContent = "Popular"
-    guideTitle.textContent = "Interface guide"
+    guideTitle.textContent = "Common Questions"
 
 
     gTxt1.innerHTML = `
@@ -1287,7 +1287,7 @@ function translateLng(){
 
     <span>
         A - To add a song to the queue, find the song of your choice and press
-        <img src="/images/libIcon.png" alt="" class="inline-icon"> to add it to the queue.
+        <img src="/images/libIcon.png" alt="" class="inline-icon">
     </span>
 `
 
@@ -1297,7 +1297,7 @@ function translateLng(){
         
         <span>
             A - To play a song next, find the song of your choice and press 
-            <img src="/images/next.png" alt="" class="inline-icon">  to add it to play it next.
+            <img src="/images/next.png" alt="" class="inline-icon">
         </span>
     `
 
@@ -1307,7 +1307,7 @@ function translateLng(){
         
         <span>
             A - To play a sample, find the song of your choice and press
-            <img src="/images/playIcon.png" alt="" class="inline-icon">  to play the sample.
+            <img src="/images/playIcon.png" alt="" class="inline-icon">
         </span>
     `
 

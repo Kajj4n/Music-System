@@ -929,3 +929,7 @@ span{
   margin-left: 0;
 
 }
+
+#guide{
+  width: max-content;
+}
