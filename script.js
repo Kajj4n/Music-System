@@ -1,6 +1,5 @@
-let exitError
-
-let alreadyIn 
+let alreadyIn
+let exitError 
 let firstSpan 
 let subTxt 
 let confirmBtns 
@@ -63,7 +62,18 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     addToLib.addEventListener("click", () => {
-        guide.style.display = "unset"
+
+        if(guide.style.display == "" || guide.style.display == "none"){
+            guide.style.display = "unset"
+        }
+
+        else if(guide.style.display == "unset"){
+            guide.style.display = "none"
+        }
+
+
+
+
     })
    
     
@@ -535,24 +545,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
 
-    let hideTimeout; // Variable to store the timeout ID
     let sngCopy;
     let crntThis;
 
+    
+    // Declare a global variable to store the timeout ID
+    let hideTimeout;
+
+    function hideElementAfterDelay(element) {
+        // Clear any existing timeout to prevent overlapping timeouts
+        if (hideTimeout) {
+            clearTimeout(hideTimeout);
+        }
+
+        // Set a new timeout to hide the element after 5 seconds
+        hideTimeout = setTimeout(function() {
+            element.style.display = "none";
+        }, 10000);
+    }
+
     // Define variables and event listeners once outside of `addToPlaylist`
-alreadyIn = document.getElementById("sng-alrdy-in-pl");
- firstSpan = document.getElementById("one");
-subTxt = document.getElementById("sub-txt");
-confirmBtns = document.getElementById("cnfrm-btns");
-confirmBtnsAll = document.querySelectorAll(".confirm");
-playlistT = document.getElementById("playlist");
+    alreadyIn = document.getElementById("sng-alrdy-in-pl");
+        
 
-// Flag to prevent multiple additions
-let songAdded = false;
+    // Define variables and event listeners once outside of `addToPlaylist`
+    firstSpan = document.getElementById("one");
+    subTxt = document.getElementById("sub-txt");
+    confirmBtns = document.getElementById("cnfrm-btns");
+    confirmBtnsAll = document.querySelectorAll(".confirm");
+    playlistT = document.getElementById("playlist");
 
-// Set up confirmation button event listeners once
-confirmBtnsAll[0].addEventListener("click", addorClose);
-confirmBtnsAll[1].addEventListener("click", addorClose);
+    // Flag to prevent multiple additions
+    let songAdded = false;
+
+    // Set up confirmation button event listeners once
+    confirmBtnsAll[0].addEventListener("click", addorClose);
+    confirmBtnsAll[1].addEventListener("click", addorClose);
 
 function addToPlaylist() {
     // Reset the songAdded flag to false whenever addToPlaylist is called
@@ -565,6 +593,8 @@ function addToPlaylist() {
     confirmBtns.style.display = "flex";
     confirmBtnsAll[0].textContent = "Yes";
     confirmBtnsAll[1].textContent = "No";
+    hideElementAfterDelay(alreadyIn)
+
 
     if (this.style.opacity == 1) {
         alreadyIn.style.display = "flex";
@@ -597,6 +627,7 @@ function addToPlaylist() {
         firstSpan.innerHTML = `<img src="/images/error.png" alt=""> Song Couldn't Be Added To the Playlist`;
         subTxt.innerText = "The following song has already been added to the playlist Queue. Try again later when the song is not in the playlist Queue.";
         confirmBtns.style.display = "none";
+        hideElementAfterDelay(alreadyIn)
     }
 
     // Handle closing error message
@@ -610,9 +641,11 @@ function addorClose() {
     if (this.textContent == "Yes" && !songAdded) {
         songAdded = true;  // Set flag to true to prevent further additions
 
-        firstSpan.innerHTML = `<img src="/images/error.png" alt="">Song Has Been Added To The Playlist!`;
+        firstSpan.innerHTML = `<img src="/images/check.png" alt="">Song Has Been Added To The Playlist!`;
         subTxt.style.display = "none";
         confirmBtns.style.display = "none";
+        hideElementAfterDelay(alreadyIn)
+
 
         const songElement = document.createElement('div');
         songElement.innerHTML = sngCopy;
@@ -629,32 +662,13 @@ function addorClose() {
         allInstances.forEach(instance => {
             instance.style.opacity = "0.5";
         });
-
-        if (hideTimeout) {
-            clearTimeout(hideTimeout);
-        }
-
-        hideTimeout = setTimeout(function() {
-            alreadyIn.style.display = "none";
-        }, 5000);
     }
 
     if (this.textContent == "No") {
         alreadyIn.style.display = "none";
-
-        if (hideTimeout) {
-            clearTimeout(hideTimeout);
-        }
-
-        hideTimeout = setTimeout(function() {
-            alreadyIn.style.display = "none";
-        }, 5000);
     }
 }
-
-    
-    
-    
+   
     let beenScanned
 
     function playSongNext() {
@@ -688,7 +702,8 @@ function addorClose() {
         firstSpan.innerHTML = '<img src="/images/error.png" alt="">Scan The Check';
         subTxt.innerText = "Please scan the check that you received for your purchase to play the song next. If you don't have a check, it can be obtained by purchasing anything in the bar.";
         confirmBtns.style.display = "flex";
-    
+        hideElementAfterDelay(alreadyIn)
+
         // Check if song is already marked to play next (opacity 0.5)
         if (currentNextButton.style.opacity == "0.5" || beenScanned) {
             subTxt.style.display = "unset";
@@ -696,12 +711,8 @@ function addorClose() {
             firstSpan.innerHTML = `<img src="/images/error.png" alt=""> Song Couldn't Be Played Next`;
             subTxt.innerText = "A song has already been chosen to be played next. Wait until the next song starts to play and try again.";
             confirmBtns.style.display = "none";
-    
-            if (hideTimeout) clearTimeout(hideTimeout);
-    
-            hideTimeout = setTimeout(function() {
-                alreadyIn.style.display = "none";
-            }, 15000);
+            hideElementAfterDelay(alreadyIn)
+
         }
     
         // Function to handle confirmation
@@ -712,6 +723,8 @@ function addorClose() {
                 subTxt.style.display = "unset";
                 firstSpan.innerHTML = '<img src="/images/error.png" alt="">Failed To Scan The Check';
                 subTxt.innerText = "Please try scanning the check again, and ensure that the check has not already been scanned. If the problem persists, talk to the available staff.";
+                hideElementAfterDelay(alreadyIn)
+
             }
     
             // If "Scanned" is chosen, update opacity for all buttons with the same song ID
@@ -725,9 +738,11 @@ function addorClose() {
                 beenScanned = true
     
                 confirmBtns.style.display = "none";
-                firstSpan.innerHTML = '<img src="/images/error.png" alt="">The song is going to play next!';
+                firstSpan.innerHTML = '<img src="/images/check.png" alt="">The song is going to play next!';
                 subTxt.innerText = "The chosen song will start playing after the current one finishes. Enjoy the listen!";
                 subTxt.style.display = "unset";
+                hideElementAfterDelay(alreadyIn)
+
 
             }
         }

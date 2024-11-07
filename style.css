@@ -817,6 +817,13 @@ span{
   cursor: pointer;
 }
 
+.inline-icon {
+  vertical-align: middle;
+  width: 16px; /* Adjust size as needed */
+  height: 16px;
+  margin: 0 3px;
+}
+
 #sng-alrdy-in-pl h3, #guide h3{
   color: white;
   display: flex;
@@ -826,13 +833,9 @@ span{
   justify-content: space-between;
 }
 
-#guide span{
-  font-size: 20px;
-  margin-left: 0;
-}
 
 
-#sng-alrdy-in-pl p, #guide p{
+#sng-alrdy-in-pl p{
   color: white;
   margin-left: 10px;
   display: flex;
@@ -895,4 +898,34 @@ span{
 
 #context > .card {
   margin-right: 0;
+}
+
+
+.guide-txt{
+    color: white;
+    margin-left: 10px;
+
+    font-size: 17px;
+    margin-bottom: 0;
+    line-height: 25px;
+    font-weight: 300;
+    margin-left: 0;
+}
+
+.guide-txt > span{
+  margin-left: 10px;
+
+  font-size: 15px;
+  margin-bottom: 0;
+  line-height: 20px;
+  font-weight: 300;
+  margin-left: 0;
+
+}
+
+#guide-ttl, #guide-ext{
+  color: white;
+  font-size: 22px;
+  margin-left: 0;
+
 }
