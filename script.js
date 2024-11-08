@@ -34,14 +34,10 @@ const translations = {
     "No" : "Nej"
 };
 
-
-
 let searchBar
 let expandTxt
-// Wrap the rest of your code in the DOMContentLoaded event listener
-document.addEventListener("DOMContentLoaded", () => {
 
-    
+document.addEventListener("DOMContentLoaded", () => {
     guide = document.getElementById("guide")
     guideExt = document.getElementById("guide-ext")
     firstSpan = document.getElementById("one");  
@@ -142,7 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Example of triggering handleAction based on action type
     playNext.addEventListener('click', () => handleAction('playNext'));
 
     
@@ -217,19 +212,15 @@ document.addEventListener("DOMContentLoaded", () => {
             playlistTitle.style.display = "none";
         }
     
-        // Hide the virtual keyboard
         Keyboard.close();
     }
     
 
-    // Select only the <p> inside the #lyrics container
     const lyricsParagraph = document.querySelector("#lyrics p");
     const lyricsText = lyricsParagraph.innerText;
 
-    // Replace each newline with a <br> tag for single line breaks
     const formattedLyrics = lyricsText.replace(/\n\s*\n/g, "<br><br>").replace(/\n/g, "<br>");
 
-    // Update only the <p> with formatted HTML, leaving #size-ctrl unaffected
     lyricsParagraph.innerHTML = formattedLyrics;
 
     for (let i = 0; i < tabs.length; i++) {
@@ -275,51 +266,41 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Play the audio as soon as the page loads (optional)
     audio.play();
 
-    // Update progress bar and current time
     audio.addEventListener('timeupdate', () => {
         const currentTime = audio.currentTime;
         const duration = audio.duration;
 
-        // Update the progress bar width
         const progressPercent = (currentTime / duration) * 100;
         progress.style.width = progressPercent + '%';
 
-        // Update the current time display
         currentTimeElement.textContent = formatTime(currentTime);
     });
 
-    // Update the duration when the metadata is loaded
     audio.addEventListener('loadedmetadata', () => {
         durationElement.textContent = formatTime(audio.duration);
     });
 
-    // Format time in minutes and seconds
     function formatTime(time) {
         const minutes = Math.floor(time / 60);
         const seconds = Math.floor(time % 60);
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     }
 
-    // Optional: Click on progress bar to change audio current time
     progressBar.addEventListener('click', (e) => {
         const width = progressBar.clientWidth;
         const clickX = e.offsetX;
         const duration = audio.duration;
 
-        // Set the new current time based on the clicked position
         audio.currentTime = (clickX / width) * duration;
     });
 
     const fontSizeRange = document.getElementById('font-size-slider');
     const lyricsT = document.getElementById('lyrics-txt');
 
-    // Set initial font size
     lyricsT.style.fontSize = fontSizeRange.value + 'px';
 
-    // Update font size based on input range value
     fontSizeRange.addEventListener('input', function() {
         lyricsT.style.fontSize = fontSizeRange.value + 'px';
     });
@@ -327,7 +308,6 @@ document.addEventListener("DOMContentLoaded", () => {
    
 });
 
-// Wrap the rest of your code in the DOMContentLoaded event listener
 document.addEventListener("DOMContentLoaded", async () => {
     const library = document.getElementById("library");
     const playlist = document.getElementById("playlist");
@@ -341,7 +321,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const artistTextElement = document.getElementById("artist-txt");
     const popularSection = document.querySelector("#artist #context");
 
-    // Set to track songs in the current playlist by `title`
+
     const playlistSongs = new Set();
 
     function getRandomSongs(songs, count = 10) {
@@ -349,36 +329,33 @@ document.addEventListener("DOMContentLoaded", async () => {
         return shuffled.slice(0, count);
     }
 
-    // Inside the existing `loadSongs` function in your second DOMContentLoaded event listener
 
     async function loadSongs() {
         try {
             const response = await fetch('songs.json');
             const songs = await response.json();
 
-            // Select 10 random songs and pick one for meta-data
+
             const randomSongs = getRandomSongs(songs);
             const songForMetaData = randomSongs.pop();
             updateMetaData(songForMetaData, songs);
 
-            // Add remaining 9 songs to the playlist and track their titles
+
             randomSongs.forEach(song => {
-                playlistSongs.add(song.title); // Track each song by its title
+                playlistSongs.add(song.title); 
                 const cardDiv = createSongCard(song);
                 playlist.appendChild(cardDiv);
             });
 
-            // Shuffle all songs again to randomize their display in the library
+           
             const shuffledSongs = [...songs].sort(() => 0.5 - Math.random());
 
-            // Display all songs in the library and update opacity for those in the playlist
             shuffledSongs.forEach(song => {
                 const isInPlaylist = playlistSongs.has(song.title);
                 const cardDiv = createSongCard(song, isInPlaylist);
                 library.appendChild(cardDiv);
             });
 
-            // New: Clone song cards to the artist page
             cloneSongsToArtistPage(songs, songForMetaData.artist);
 
         } catch (error) {
@@ -386,32 +363,28 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    // New function to clone songs for the artist page
+
     function cloneSongsToArtistPage(songs, artist) {
-        const artistSongsContainer = document.querySelector('#artist #context'); // Update to match your artist section
+        const artistSongsContainer = document.querySelector('#artist #context');
         const matchingSongs = songs.filter(song => song.artist === artist);
     
         matchingSongs.forEach(song => {
-            const isInPlaylist = playlistSongs.has(song.title); // Check if this song is in the playlist
+            const isInPlaylist = playlistSongs.has(song.title);
     
-            // Create song card or element
-            const cardDiv = createSongCard(song); // Assuming createSongCard is defined elsewhere
-    
-            // Find the existing library icon in the card
+
+            const cardDiv = createSongCard(song); 
+
             const existingIcon = cardDiv.querySelector('.addlib');
             
-            // Update the opacity of the existing icon based on whether the song is in the playlist
             if (existingIcon) {
-                existingIcon.style.opacity = isInPlaylist ? '0.5' : '1'; // Set opacity based on playlist status
+                existingIcon.style.opacity = isInPlaylist ? '0.5' : '1'; 
             }
     
-            // Append the card to the artist section
-            artistSongsContainer.appendChild(cardDiv); // Append the card to the artist section
+            artistSongsContainer.appendChild(cardDiv);
         });
     }
 
     function updateMetaData(song, allSongs) {
-        // Update main song details
         const mainImg = document.querySelector(".main-img");
         mainTitle.textContent = song.title;
         mainAlbum.textContent = song.album;
@@ -419,7 +392,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         audioElement.load();
         mainImg.style.background = `url("${song.imageLink}") rgb(0, 0, 0) 100% / cover no-repeat`;
 
-        // Set the background for `body::before` with song image
+
         const style = document.createElement('style'); 
         style.innerHTML = `
             body::before {
@@ -428,9 +401,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         `;
         document.head.appendChild(style);
 
-        // Populate the artist section with `songForMetaData` details
         artistNameElement.textContent = song.artist;
-        artistImageElement.style.backgroundImage = `url("${song.imageLink}")`;
+        artistImageElement.style.backgroundImage = `url("${song.artistImage}")`;
         artistTextElement.innerHTML = `
             <p id="actl-text">
                 ${song.artist} <span id = "spn-txt">is known for Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</span>
@@ -444,42 +416,35 @@ document.addEventListener("DOMContentLoaded", async () => {
             const mainImageDiv = document.querySelector(".main-img");
             const adaptiveClrs = document.querySelectorAll(".adaptive-clr");
         
-            // Extract the image URL from the background-image style
             const bgImageUrl = window.getComputedStyle(mainImageDiv).backgroundImage;
-            const imageUrl = bgImageUrl.slice(5, -2); // Stripping off the 'url("")' part
-        
-            // Create a temporary image element to load the background image
+            const imageUrl = bgImageUrl.slice(5, -2);
+
             const tempImage = new Image();
-            tempImage.crossOrigin = "Anonymous"; // Handle CORS if needed
+            tempImage.crossOrigin = "Anonymous";
             tempImage.src = imageUrl;
         
             tempImage.onload = async function () {
-                // Get the color palette from the image using ColorThief
                 const palette = await extractColor(tempImage);
-                const primary = palette[0]; // RGB array, e.g., [r, g, b]
+                const primary = palette[0]; 
         
-                // Darken the primary color by 20%
                 const darkenedPrimary = darkenColor(primary, 0.8);
         
-                // Apply the darkened primary color to each .adaptive-clr element
                 adaptiveClrs.forEach((adaptiveClr) => {
                     adaptiveClr.style.background = `rgb(${darkenedPrimary.join(",")})`;
         
-                    // Calculate luminance to determine if the color is bright
                     const luminance = (0.299 * darkenedPrimary[0] + 0.587 * darkenedPrimary[1] + 0.114 * darkenedPrimary[2]) / 255;
         
-                    // Set image color based on luminance
                     const img = adaptiveClr.querySelector("img");
-                    if (luminance > 0.7) { // Adjust threshold as needed
-                        img.style.filter = "brightness(0)"; // Makes the image black
+                    if (luminance > 0.7) { 
+                        img.style.filter = "brightness(0)"; 
                     } else {
-                        img.style.filter = "brightness(1)"; // Keeps the image original color
+                        img.style.filter = "brightness(1)"; 
                     }
                 });
     
             };
         
-            // Function to extract color palette
+
             function extractColor(image) {
                 return new Promise((resolve) => {
                     const getPalette = () => colorThief.getPalette(image, 4);
@@ -494,7 +459,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 });
             }
         
-            // Function to darken the color by applying a factor
+
             function darkenColor(rgbArray, factor) {
                 return rgbArray.map(channel => Math.max(0, Math.min(255, channel * factor)));
             }
@@ -544,47 +509,36 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let sngCopy;
     let crntThis;
-
-    
-    // Declare a global variable to store the timeout ID
     let hideTimeout;
 
     function hideElementAfterDelay(element) {
-        // Clear any existing timeout to prevent overlapping timeouts
+
         if (hideTimeout) {
             clearTimeout(hideTimeout);
         }
 
-        // Set a new timeout to hide the element after 5 seconds
+
         hideTimeout = setTimeout(function() {
             element.style.display = "none";
         }, 10000);
     }
 
-    // Define variables and event listeners once outside of `addToPlaylist`
     alreadyIn = document.getElementById("sng-alrdy-in-pl");
-        
-
-    // Define variables and event listeners once outside of `addToPlaylist`
     firstSpan = document.getElementById("one");
     subTxt = document.getElementById("sub-txt");
     confirmBtns = document.getElementById("cnfrm-btns");
     confirmBtnsAll = document.querySelectorAll(".confirm");
     playlistT = document.getElementById("playlist");
 
-    // Flag to prevent multiple additions
     let songAdded = false;
 
-    // Set up confirmation button event listeners once
     confirmBtnsAll[0].addEventListener("click", addorClose);
     confirmBtnsAll[1].addEventListener("click", addorClose);
 
     function addToPlaylist() {
-        // Reset the songAdded flag to false whenever addToPlaylist is called
         songAdded = false;
         crntThis = this;
         
-        // Add translations for the text inside firstSpan and subTxt
         firstSpan.innerHTML = `<img src="/images/error.png" alt="">${toggleTranslation("Add song to the playlist?")}`;
 
         if(lngImg.style.background.includes("gbFlag.jpg")){
@@ -593,9 +547,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         subTxt.innerText = "";
         subTxt.style.display = "none";
         confirmBtns.style.display = "flex";
+
         
-        confirmBtnsAll[0].textContent = toggleTranslation("Yes");
-        confirmBtnsAll[1].textContent = toggleTranslation("No");
+
         hideElementAfterDelay(alreadyIn);
     
         if (this.style.opacity == 1) {
@@ -640,16 +594,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             hideElementAfterDelay(alreadyIn);
         }
     
-        // Handle closing error message
         exitError.addEventListener("click", () => {
             alreadyIn.style.display = "none";
         });
     }
 
 function addorClose() {
-    // Only proceed if the song has not already been added
-    if (this.textContent == "Yes" && !songAdded) {
-        songAdded = true;  // Set flag to true to prevent further additions
+
+    if (this.textContent == "Yes" || this.textContent == "Ja" && !songAdded) {
+        songAdded = true; 
 
         firstSpan.innerHTML = `<img src="/images/check.png" alt="">${toggleTranslation("Song Has Been Added To The Playlist!")}`;
         if(lngImg.style.background.includes("gbFlag.jpg")){
@@ -678,7 +631,7 @@ function addorClose() {
         });
     }
 
-    if (this.textContent == "No") {
+    if (this.textContent == "No"|| this.textContent == "Nej") {
         alreadyIn.style.display = "none";
     }
 }
@@ -686,18 +639,15 @@ function addorClose() {
     let beenScanned
 
     function playSongNext() {
-        // Elements for display and confirmation
         alreadyIn = document.getElementById("sng-alrdy-in-pl");
         firstSpan = document.getElementById("one");
         subTxt = document.getElementById("sub-txt");
         confirmBtns = document.getElementById("cnfrm-btns");
         confirmBtnsAll = document.querySelectorAll(".confirm");
-    
-        // Reference to the current "next" button and its song ID
+
         const currentNextButton = this;
-        const songId = this.getAttribute("data-song-id"); // Get song's unique ID
+        const songId = this.getAttribute("data-song-id"); 
     
-        // Set up confirmation buttons
         confirmBtnsAll[0].textContent = toggleTranslation("Scanned");
         confirmBtnsAll[1].textContent = toggleTranslation("Not Scanned");
         
@@ -705,12 +655,12 @@ function addorClose() {
             confirmBtnsAll[i].addEventListener("click", nextOrNot);
         }
     
-        // Close error dialog on clicking exit
+
         exitError.addEventListener("click", () => {
             alreadyIn.style.display = "none";
         });
     
-        // Show prompt to scan the check
+
         alreadyIn.style.display = "flex";
         subTxt.style.display = "unset";
         firstSpan.innerHTML = `<img src="/images/error.png" alt="">${toggleTranslation("Scan The Check")}`;
@@ -727,7 +677,7 @@ function addorClose() {
         confirmBtns.style.display = "flex";
         hideElementAfterDelay(alreadyIn)
 
-        // Check if song is already marked to play next (opacity 0.5)
+
         if (currentNextButton.style.opacity == "0.5" || beenScanned) {
             subTxt.style.display = "unset";
             alreadyIn.style.display = "flex";
@@ -746,9 +696,9 @@ function addorClose() {
 
         }
     
-        // Function to handle confirmation
+
         function nextOrNot() {
-            // If "Not Scanned" is chosen
+
             if (this.textContent === toggleTranslation("Not Scanned")) {
                 confirmBtns.style.display = "none";
                 subTxt.style.display = "unset";
@@ -764,7 +714,7 @@ function addorClose() {
                 subTxt.innerText = "Försök att skanna kvittot igen och se till att det inte redan har skannats. Om problemet kvarstår, tala med personalen.";
             }        
     
-            // If "Scanned" is chosen, update opacity for all buttons with the same song ID
+
             if (this.textContent === toggleTranslation("Scanned")) {
                 const allNextButtons = document.querySelectorAll(`.next[data-song-id="${songId}"]`);
     
@@ -802,16 +752,15 @@ let currentAudioContext = null;
 let currentSource = null;
 
 function playSample(audioUrl) {
-    // Stop any currently playing audio if necessary
+
     if (currentAudioContext) {
-        currentAudioContext.close(); // Stop and close the current AudioContext
+        currentAudioContext.close(); 
         currentAudioContext = null;
     }
 
-    // Create a new AudioContext for the new sample
+
     currentAudioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-    // Fetch and play the audio with fade-in/out
     fetch(audioUrl)
         .then(response => response.arrayBuffer())
         .then(arrayBuffer => currentAudioContext.decodeAudioData(arrayBuffer))
@@ -820,15 +769,15 @@ function playSample(audioUrl) {
             const maxStartTime = duration - 15;
             const startTime = Math.random() * maxStartTime;
 
-            // Create a new source for the sample
+
             const source = currentAudioContext.createBufferSource();
             source.buffer = audioBuffer;
 
-            // Set up gain node for fade-in/fade-out
+
             const gainNode = currentAudioContext.createGain();
             source.connect(gainNode).connect(currentAudioContext.destination);
 
-            // Fade-in and fade-out settings
+
             const fadeDuration = 2;
             gainNode.gain.setValueAtTime(0, currentAudioContext.currentTime);
             gainNode.gain.linearRampToValueAtTime(1, currentAudioContext.currentTime + fadeDuration);
@@ -836,11 +785,9 @@ function playSample(audioUrl) {
             gainNode.gain.setValueAtTime(1, fadeOutStart);
             gainNode.gain.linearRampToValueAtTime(0, fadeOutStart + fadeDuration);
 
-            // Start playing and assign source to global variable
             source.start(0, startTime, 15);
             currentSource = source;
 
-            // Reset visuals when playback ends
             source.onended = () => {
                 currentAudioContext.close();
                 currentAudioContext = null;
@@ -861,13 +808,13 @@ function playSample(audioUrl) {
 
 
 function sample() {
-    // If this sample is already playing, stop it and reset visuals
+
     if (prevSample === this) {
         this.src = "/images/smplIcon.png";
         this.parentElement.parentElement.style.background = "unset";
         this.parentElement.parentElement.style.backdropFilter = "unset";
         
-        // Stop the current audio playback
+
         if (currentAudioContext) {
             currentAudioContext.close();
             currentAudioContext = null;
@@ -877,54 +824,50 @@ function sample() {
         return;
     }
 
-    // Reset visuals of the previous sample if it exists
+
     if (prevSample) {
         prevSample.src = "/images/smplIcon.png";
         prevSample.parentElement.parentElement.style.background = "unset";
         prevSample.parentElement.parentElement.style.backdropFilter = "unset";
     }
 
-    // Set visuals for the new sample
+
     this.src = "/images/playing.png";
     this.parentElement.parentElement.style.background = "rgba(20, 20, 20, 0.24)";
     this.parentElement.parentElement.style.backdropFilter = "blur(33px)";
 
-    // Play the new sample
-    playSample('/audio/prepareForEscape.mp3');    
 
-    // Update prevSample to this one
+    playSample('/audio/prepareForEscape.mp3');    
     prevSample = this;
 }
 
 function myFunction() {
     const notFound = document.getElementById("unfound");
-    const input = document.getElementById('search');  // Get the search input
-    const filter = input.value.toUpperCase();          // Convert the input to uppercase for case-insensitive comparison
-    const libraryT = document.getElementById("library"); // Get the library element
-    const cardT = libraryT.getElementsByClassName('card'); // Get all song cards
+    const input = document.getElementById('search'); 
+    const filter = input.value.toUpperCase();  
+    const libraryT = document.getElementById("library");
+    const cardT = libraryT.getElementsByClassName('card'); 
     
-    let anyVisible = false; // Track if any card is visible
+    let anyVisible = false; 
 
-    // Loop through all cards, and hide those who don't match the search query
     for (let i = 0; i < cardT.length; i++) {
-        const songTitle = cardT[i].getElementsByClassName("sng-txt")[0]; // Get song text container
-        const songArtist = cardT[i].getElementsByClassName("artist")[0]; // Get artist element
+        const songTitle = cardT[i].getElementsByClassName("sng-txt")[0];
+        const songArtist = cardT[i].getElementsByClassName("artist")[0]; 
         
-        if (songTitle && songArtist) { // Check if both song title and artist elements exist
-            const txtValueTitle = songTitle.getElementsByTagName("h3")[0].textContent || songTitle.getElementsByTagName("h3")[0].innerText; // Get the song title text
-            const txtValueArtist = songArtist.textContent || songArtist.innerText; // Get the artist text
+        if (songTitle && songArtist) { 
+            const txtValueTitle = songTitle.getElementsByTagName("h3")[0].textContent || songTitle.getElementsByTagName("h3")[0].innerText; 
+            const txtValueArtist = songArtist.textContent || songArtist.innerText; 
 
-            // Compare the text with the filter
+
             if (txtValueTitle.toUpperCase().indexOf(filter) > -1 || txtValueArtist.toUpperCase().indexOf(filter) > -1) {
-                cardT[i].style.display = "flex";  // Show card if it matches either the title or artist
-                anyVisible = true;  // Mark that at least one card is visible
+                cardT[i].style.display = "flex"; 
+                anyVisible = true; 
             } else {
-                cardT[i].style.display = "none";   // Hide card if it doesn't match
+                cardT[i].style.display = "none"; 
             }
         }
     }
 
-    // Show "unfound" only if no cards are visible
     notFound.style.display = anyVisible ? "none" : "flex";
     libraryT.style.justifyContent = anyVisible ? "start" : "center";
 }
@@ -990,7 +933,7 @@ const Keyboard = {
     },
 
     init() {
-        // create and setup main element
+
         this.elements.main =
             document.createElement("div");
         this.elements.main.classList
@@ -998,7 +941,6 @@ const Keyboard = {
         document.body
             .appendChild(this.elements.main);
 
-        // create and setup child container component
         this.elements.keysContainer =
             document.createElement("div");
         this.elements.keysContainer
@@ -1006,14 +948,13 @@ const Keyboard = {
         this.elements.main
             .appendChild(this.elements.keysContainer);
 
-        // create and setup key elements
         this.elements.keysContainer
             .appendChild(this._createKeys());
         this.elements.keys =
             this.elements.keysContainer
                 .querySelectorAll(".keyboard__key");
 
-        // open keyboard for elements with .use-keyboard-input
+
         this.properties.keyboardInputs =
             document.querySelectorAll(
                 ".use-keyboard-input"
@@ -1038,13 +979,13 @@ const Keyboard = {
         this.keyElement =
             document.createElement("button");
 
-        // add common attributes and classes
+
         this.keyElement
             .setAttribute("type", "button");
         this.keyElement
             .classList.add("keyboard__key");
 
-        // add specific listeners and classes
+
         this.keyElement
             .classList.add(class1, class2);
         this.keyElement.innerHTML =
@@ -1150,7 +1091,7 @@ const Keyboard = {
         this.properties.keyboardInputs.forEach((keyboard) => {
             keyboard.value = this.properties.value;
         });
-        myFunction();  // Trigger the search function on each input update
+        myFunction(); 
     },
 
     _toggleCapsLock() {
@@ -1199,20 +1140,23 @@ function translateLng(){
     const gTxt1 = document.getElementById("txt-1")
     const gTxt2 = document.getElementById("txt-2")
     const gTxt3 = document.getElementById("txt-3")
+    const libTitle = document.getElementById("library-title")
+    const unfound = document.getElementById("unfound")
+
+    const confirm1 = document.getElementById("confirm1")
+    const confirm2 = document.getElementById("confirm2")
 
     let isSwedish = lngImg.style.background.includes("gbFlag.jpg");
 
-    // Toggle language flag and update background first
     if (isSwedish) {
         lngImg.style.background = `url("/images/gbFlag.jpg") center center / cover no-repeat`;
     } else {
         lngImg.style.background = `url("/images/svFlag.png") center center / cover no-repeat`;
     }
 
-    // Refresh the language state after flag change
     isSwedish = !isSwedish;
 
-    // Ensure `firstSpan` and `subTxt` are updated immediately when the language is toggled
+
     if (firstSpan.innerHTML.includes("error.png")) {
         firstSpan.innerHTML = `<img src="/images/error.png" alt="">${toggleTranslation(firstSpan.innerText, isSwedish)}`;
     } else if (firstSpan.innerHTML.includes("check.png")) {
@@ -1229,12 +1173,16 @@ function translateLng(){
         helpBTn.innerText = "Hjälp"
         searchBar.placeholder = "Sök efter låt, artist, album."
         playlistTitle.textContent = "Nästa I Spellista"
+        unfound.textContent = "Låten Kunde Inte Hittas i Biblioteket."
+        libTitle.textContent = "Låt bibliotek"
         tabs[2].textContent = "NÄSTA"
         tabs[1].textContent = "TEXT"
         spnText.textContent = "Är känd för Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
         expandTxt.textContent = "Visa Mer"
         pplrText.textContent = "Populärast"
         guideTitle.textContent = "Vanliga Frågor"
+        confirm1.textContent = "Ja"
+        confirm2.textContent = "Nej"
 
     gTxt1.innerHTML = `
 
@@ -1272,13 +1220,17 @@ function translateLng(){
     searchBtn.innerText = "Search"
     helpBTn.innerText = "Help"
     playlistTitle.textContent = "Next In Playlist"
+    libTitle.textContent = "Song library"
     searchBar.placeholder = "Search by song name, artist, album."
+    unfound.textContent = "Song Not Found in The Library."
     tabs[2].textContent = "UP NEXT"
     tabs[1].textContent = "LYRICS"
     spnText.textContent = "Is known for Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
     expandTxt.textContent = "Show Less"
     pplrText.textContent = "Popular"
     guideTitle.textContent = "Common Questions"
+    confirm1.textContent = "Yes"
+    confirm2.textContent = "No"
 
 
     gTxt1.innerHTML = `
@@ -1313,13 +1265,11 @@ function translateLng(){
 
 }
 
-
-// Helper function to toggle text translation
 function toggleTranslation(text, isSwedish) {
     if (isSwedish) {
-        return translations[text] || text;  // English to Swedish
+        return translations[text] || text; 
     } else {
         const englishText = Object.keys(translations).find(key => translations[key] === text);
-        return englishText || text;  // Swedish to English
+        return englishText || text; 
     }
 }

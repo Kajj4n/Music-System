@@ -7,6 +7,7 @@
         "album": "Nu...",
         "imageLink": "/songImages/angel.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/jesse.png",
         "length": "2:21",
         "plays": "134 278 945"
     },
@@ -18,6 +19,7 @@
         "album": "Ba...",
         "imageLink": "/songImages/blood.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/jesse.png",
         "length": "4:55",
         "plays": "187 349 284"
     },
@@ -29,6 +31,7 @@
         "album": "Nu...",
         "imageLink": "/songImages/bricks.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/jesse.png",
         "length": "8:01",
         "plays": "92 567 812"
     },
@@ -40,6 +43,7 @@
         "album": "Ba...",
         "imageLink": "/songImages/fighter.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/jesse.png",
         "length": "4:56",
         "plays": "157 893 624"
     },
@@ -51,6 +55,7 @@
         "album": "Nu...",
         "imageLink": "/songImages/gohan.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/jesse.png",
         "length": "7:11",
         "plays": "143 005 321"
     },
@@ -62,6 +67,7 @@
         "album": "Making the Cook",
         "imageLink": "/songImages/grassOnStoneWall.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/waltuh.png",
         "length": "4:20",
         "plays": "117 932 487"
     },
@@ -73,6 +79,7 @@
         "album": "I'm the Danger",
         "imageLink": "/songImages/mountains.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/waltuh.png",
         "length": "6:32",
         "plays": "184 320 291"
     },
@@ -84,6 +91,7 @@
         "album": "Making the Cook",
         "imageLink": "/songImages/ninja.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/waltuh.png",
         "length": "10:31",
         "plays": "112 897 436"
     },
@@ -95,6 +103,7 @@
         "album": "I'm the Danger",
         "imageLink": "/songImages/potion.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/waltuh.png",
         "length": "1:57",
         "plays": "135 284 139"
     },
@@ -106,6 +115,7 @@
         "album": "Making the Cook",
         "imageLink": "/songImages/romanSoldier.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/waltuh.png",
         "length": "4:12",
         "plays": "160 943 219"
     },
@@ -117,6 +127,7 @@
         "album": "Just when I thought I was out",
         "imageLink": "/songImages/sad.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/sad.png",
         "length": "7:34",
         "plays": "120 048 730"
     },
@@ -128,6 +139,7 @@
         "album": "They Pull Me Back In",
         "imageLink": "/songImages/saulGoodman.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/sad.png",
         "length": "8:22",
         "plays": "175 604 981"
     },
@@ -139,6 +151,7 @@
         "album": "Just when I thought I was out",
         "imageLink": "/songImages/waterWaves1.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/sad.png",
         "length": "6:14",
         "plays": "110 437 290"
     },
@@ -150,6 +163,7 @@
         "album": "They Pull Me Back In",
         "imageLink": "/songImages/wizzard.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/sad.png",
         "length": "2:22",
         "plays": "145 201 672"
     },
@@ -161,6 +175,7 @@
         "album": "Just when I thought I was out",
         "imageLink": "/songImages/yuumi.png",
         "audioLink": "/audio/prepareForEscape.mp3",
+        "artistImage": "/artistImages/sad.png",
         "length": "3:00",
         "plays": "108 762 340"
     }
