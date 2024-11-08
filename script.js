@@ -11,7 +11,7 @@ let lngImg
 let playlistTitle
 let tabs
 const translations = {
-    "Add song to the playlist?": "Lägg till denna låt i spellistan?",
+    "Add song to the playlist?": "Lägg till låt i spellistan?",
     "Song Couldn't Be Added To the Playlist": "Låten kunde inte läggas till i spellistan",
     "Song Has Been Added To The Playlist!" : "Låten har lagts till i spellistan!",
     "The following song has already been added to the playlist Queue. Try again later when the song is not in the playlist Queue.":
